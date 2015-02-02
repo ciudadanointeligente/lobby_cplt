@@ -1,0 +1,37 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/Persona" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/Agent" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/Person" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/firstName" } ,
+        "hasValue": { "type": "literal" , "value": "Leonor" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/lastName" } ,
+        "hasValue": { "type": "literal" , "value": "Droguett Guerra" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/name" } ,
+        "hasValue": { "type": "literal" , "value": "Leonor Droguett Guerra" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/0100000035FBA8A3489DC55B38F2412000ECD823B7B037613D60FA221702F4025EF216475E4450578C83800A796A265767CF60B10C5D1C0A3D55C867E588683B758B4B6C684FD3391E2B0601" }
+      }
+    ]
+  }
+}

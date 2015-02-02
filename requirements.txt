@@ -1,0 +1,6 @@
+Django==1.7.1
+nose
+django-nose
+-e git+git@github.com:openpolis/django-popolo.git#egg=django_popolo-dev
+mock
+requests
