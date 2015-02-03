@@ -18,3 +18,4 @@ class Audiencia(models.Model):
     date = models.DateTimeField(null=True)
     place = models.IntegerField(null=True)
     observations = models.TextField(null=True)
+    passive = models.ForeignKey(Passive)
