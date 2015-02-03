@@ -52,3 +52,23 @@ class ActiveScrapper():
             if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
                 active.name = result["hasValue"]["value"]
         active.save()
+
+    def parse(self, response_json, id):
+
+        previous_actives = Active.objects.filter(identifiers__identifier=id)
+        if previous_actives:
+            return None
+
+        active = Active()
+
+        for result in response_json['results']['bindings']:
+
+            if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
+                active.name = result["hasValue"]["value"]
+
+            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA':
+                identifier_alt = Identifier(identifier=result["hasValue"]["value"])
+        active.save()
+        identifier = Identifier(identifier=id)
+        active.identifiers.add(identifier)
+        active.identifiers.add(identifier_alt)

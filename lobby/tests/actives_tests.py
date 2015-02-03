@@ -5,6 +5,8 @@ from lobby.management.commands.scrape import ActiveScrapper
 from lobby.tests import PostMock
 from django.test.utils import override_settings
 from mock import patch
+import json
+import os
 
 
 class ActiveTestCase(TestCase):
@@ -58,3 +60,15 @@ class ActiveScrapperTestCase(TestCase):
 
         active = Active.objects.filter(name="Alejandro Jimenez")
         self.assertTrue(active)
+
+    def test_create_only_one(self):
+        script_dir = os.path.dirname(__file__)
+        f = open(os.path.join(script_dir, 'fixtures/alejandro.json'), 'r')
+        alejandro_json = json.loads(f.read())
+
+        scraper = ActiveScrapper()
+        scraper.parse(alejandro_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905')
+        scraper.parse(alejandro_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905')
+
+        alejandros = Active.objects.filter(name="Alejandro Jimenez")
+        self.assertEquals(alejandros.count(), 1)
