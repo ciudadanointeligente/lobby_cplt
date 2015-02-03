@@ -2,9 +2,9 @@ from django.test import TestCase
 from lobby.models import Passive
 from django.core.management import call_command
 from mock import patch
-import os
 from django.test.utils import override_settings
 from lobby.management.commands.scrape import PassiveScrapper
+from lobby.tests import PostMock
 
 
 class PassivePersonTestCase(TestCase):
@@ -13,14 +13,6 @@ class PassivePersonTestCase(TestCase):
         passive = Passive.objects.create(name=u'The name')
         self.assertTrue(passive)
         self.assertEquals(passive.name, u'The name')
-
-
-class PostMock():
-    def __init__(self, fixture=''):
-        self.status_code = 200
-        script_dir = os.path.dirname(__file__)
-        f = open(os.path.join(script_dir, 'fixtures/' + fixture), 'r')
-        self.content = f.read()
 
 passives_query = 'SELECT DISTINCT ?instance WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/Persona> } ORDER BY ?instance'
 sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
@@ -57,10 +49,8 @@ class PassiveScrapperTestCase(TestCase):
         with patch('requests.post') as post:
             post.return_value = PostMock('leonor.json')
             scraper = PassiveScrapper()
-            passive = scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000000EC4A714E03B5E787C7BB13378FB26CDCC783038F1043B399A23046F478035')
+            scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000000EC4A714E03B5E787C7BB13378FB26CDCC783038F1043B399A23046F478035')
             scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000000EC4A714E03B5E787C7BB13378FB26CDCC783038F1043B399A23046F478035')
 
             leonores = Passive.objects.filter(name='Leonor Droguett Guerra')
             self.assertEquals(leonores.count(), 1)
-
-

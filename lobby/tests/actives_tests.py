@@ -19,3 +19,20 @@ class ActiveTestCase(TestCase):
         active2 = Active.objects.get(identifiers__identifier='perico')
         self.assertTrue(active2)
         self.assertEquals(active2.name, u"Perico los palotes")
+
+
+    def test_use_two_identifiers(self):
+        active = Active.objects.create(name=u"Perico los palotes")
+
+        identifier = Identifier(identifier="perico")
+        identifier2 = Identifier(identifier="condorito")
+        active.identifiers.add(identifier)
+        active.identifiers.add(identifier2)
+
+        active_search_one = Active.objects.get(identifiers__identifier="perico")
+        active_search_two = Active.objects.get(identifiers__identifier="condorito")
+        self.assertTrue(active_search_one)
+        self.assertTrue(active_search_two)
+        self.assertEquals(active_search_one.name, u"Perico los palotes")
+        self.assertEquals(active_search_two.name, u"Perico los palotes")
+        

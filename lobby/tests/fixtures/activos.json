@@ -1,0 +1,17 @@
+{
+  "head": {
+    "vars": [ "s" , "p" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "s": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905" } ,
+        "p": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/ActivoIntervalo/3905" }
+      } ,
+      {
+        "s": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3906" } ,
+        "p": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/ActivoIntervalo/3906" }
+      }
+    ]
+  }
+}
