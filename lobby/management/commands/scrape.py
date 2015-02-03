@@ -70,7 +70,6 @@ class Scraper(RequesterMixin):
         response_json = json.loads(content)
         scraper = self.scraper(requester=self.requester)
         for result in response_json['results']['bindings']:
-            print scraper
             scraper.get_one(result['instance']['value'])
 
 
