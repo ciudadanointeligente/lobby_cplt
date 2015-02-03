@@ -57,11 +57,14 @@ class ActiveScrapper(PersonScrapperMixin):
 
 
 class Scraper():
+    def __init__(self, scraper, *args, **kwargs):
+        self.scraper = scraper
+
     def parse(self, content):
         response_json = json.loads(content)
-        passive_scrapper = PassiveScrapper()
+        scraper = self.scraper()
         for result in response_json['results']['bindings']:
-            passive_scrapper.get_one(result['instance']['value'])
+            scraper.get_one(result['instance']['value'])
 
 
 class Command(BaseCommand):

@@ -41,9 +41,21 @@ class PassiveScrapperTestCase(TestCase):
 
         with patch('requests.post') as post:
             post.return_value = PostMock()
-            scraper = Scraper()
+            scraper = Scraper(PassiveScrapper)
             scraper.parse(passives_plain)
             self.assertEquals(post.call_count, 2)
+
+    def test_create_leo(self):
+        script_dir = os.path.dirname(__file__)
+        f = open(os.path.join(script_dir, 'fixtures/single_passive.json'), 'r')
+        passives_plain = f.read()
+        with patch('requests.post') as post:
+            post.return_value = PostMock('leonor.json')
+            scraper = Scraper(PassiveScrapper)
+            scraper.parse(passives_plain)
+
+        leonores = Passive.objects.all()
+        self.assertEquals(leonores.count(), 1)
 
     def test_gets_one_passive(self):
         with patch('requests.post') as post:
