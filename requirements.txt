@@ -4,3 +4,4 @@ django-nose
 -e git+git@github.com:openpolis/django-popolo.git#egg=django_popolo-dev
 mock
 requests
+-e git+git@github.com:dropbox/responses.git#egg=responses

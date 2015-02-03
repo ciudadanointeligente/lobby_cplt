@@ -1,0 +1,37 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/Persona" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/Agent" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/Person" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/firstName" } ,
+        "hasValue": { "type": "literal" , "value": "Tatiana" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/lastName" } ,
+        "hasValue": { "type": "literal" , "value": "Aceituno Flores" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/name" } ,
+        "hasValue": { "type": "literal" , "value": "Tatiana Aceituno Flores" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/01000000E31C39D004051B319923430929BF486C807689D6527AF079ABF9CCC3346867C99FA310BA17B2573DB988A4B811F299618A98C6A57C22BC327A009EC766D54292016380CCB9A89F39" }
+      }
+    ]
+  }
+}
