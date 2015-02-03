@@ -15,6 +15,12 @@ class PassivePersonTestCase(TestCase):
         self.assertTrue(passive)
         self.assertEquals(passive.name, u'The name')
 
+    def test_passive_have_tags(self):
+        passive = Passive.objects.create(name=u"Perico los palotes")
+        passive.tags.add('Tag')
+        self.assertTrue(passive.tags.all())
+        self.assertTrue(passive.tags.count(), 1)
+
 passives_query = 'SELECT DISTINCT ?instance WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/Persona> } ORDER BY ?instance'
 sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
 

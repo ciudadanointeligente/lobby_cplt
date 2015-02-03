@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'popolo',
     ## Own Applications
     'lobby',
+    'taggit'
 )
 
 MIDDLEWARE_CLASSES = (

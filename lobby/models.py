@@ -1,11 +1,12 @@
 from django.db import models
 from popolo.models import Person
+from taggit.managers import TaggableManager
 
 
 # Create your models here.
 class Passive(Person):
-    pass
+    tags = TaggableManager()
 
 
 class Active(Person):
-    pass
+    tags = TaggableManager()

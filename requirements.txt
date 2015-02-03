@@ -5,3 +5,4 @@ django-nose
 mock
 requests
 -e git+git@github.com:dropbox/responses.git#egg=responses
+django-taggit

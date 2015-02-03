@@ -16,6 +16,12 @@ class ActiveTestCase(TestCase):
         self.assertTrue(active)
         self.assertEquals(active.name, u"Perico los palotes")
 
+    def test_actives_have_tags(self):
+        active = Active.objects.create(name=u"Perico los palotes")
+        active.tags.add('Tag')
+        self.assertTrue(active.tags.all())
+        self.assertTrue(active.tags.count(), 1)
+
     def test_use_identifiers(self):
         active = Active.objects.create(name=u"Perico los palotes")
 
