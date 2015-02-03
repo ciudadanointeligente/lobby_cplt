@@ -1,5 +1,5 @@
 from django.test import TestCase
-from lobby.models import Audiencia, Passive
+from lobby.models import Audiencia, Passive, Active
 from django.utils import timezone
 
 
@@ -24,3 +24,21 @@ class AudienciasTestCase(TestCase):
         self.assertEquals(audiencia.place, 13101)
         self.assertEquals(audiencia.observations, "Esto puede ser extenso")
         self.assertEquals(audiencia.passive, self.passive)
+
+    def test_audiencia_several_actives(self):
+        audiencia = Audiencia()
+        audiencia.description = "Description"
+        audiencia.passive = self.passive
+        audiencia.save()
+
+        active1 = Active.objects.create(name=u"Perico los palotes")
+        active2 = Active.objects.create(name=u"Perico los palotes2")
+
+        audiencia.actives.add(active1)
+        audiencia.actives.add(active2)
+
+        audiencia = Audiencia.objects.get(id=audiencia.id)
+        self.assertTrue(audiencia.actives.all())
+        self.assertEqual(audiencia.actives.count(), 2)
+        self.assertIn(active1, audiencia.actives.all())
+        self.assertIn(active2, audiencia.actives.all())

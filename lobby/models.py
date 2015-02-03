@@ -19,3 +19,4 @@ class Audiencia(models.Model):
     place = models.IntegerField(null=True)
     observations = models.TextField(null=True)
     passive = models.ForeignKey(Passive)
+    actives = models.ManyToManyField(Active)
