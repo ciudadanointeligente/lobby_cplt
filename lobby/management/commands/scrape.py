@@ -7,7 +7,36 @@ import json
 from popolo.models import Identifier
 
 
-class PassiveScrapper():
+class PersonScrapperMixin():
+    def parse(self, response_json, id):
+
+        previous_persons = self.model.objects.filter(identifiers__identifier=id)
+        if previous_persons:
+            return None
+
+        person = self.model()
+
+        for result in response_json['results']['bindings']:
+
+            if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
+                person.name = result["hasValue"]["value"]
+
+            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA':
+                if 'hasValue' in result:
+                    identifier_alt = Identifier(identifier=result["hasValue"]["value"])
+                if 'isValueOf' in result:
+                    identifier_alt = Identifier(identifier=result["isValueOf"]["value"])
+        person.save()
+        identifier = Identifier(identifier=id)
+        person.identifiers.add(identifier)
+        person.identifiers.add(identifier_alt)
+        print person
+        return person
+
+
+class PassiveScrapper(PersonScrapperMixin):
+    model = Passive
+
     def get_one(self, id):
         query = Template(u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue }  UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf')
         query_s = query.substitute(id=id)
@@ -15,22 +44,6 @@ class PassiveScrapper():
         response_json = json.loads(response.content)
 
         return self.parse(response_json, id)
-
-    def parse(self, response_json, id):
-        previous_passives = Passive.objects.filter(identifiers__identifier=id)
-        if previous_passives:
-            return None
-
-        passive = Passive()
-        for result in response_json['results']['bindings']:
-
-            if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
-                passive.name = result["hasValue"]["value"]
-        passive.save()
-        identifier = Identifier(identifier=id)
-        passive.identifiers.add(identifier)
-        print passive.name
-        return passive
 
 
 class Command(BaseCommand):
@@ -48,7 +61,9 @@ class Command(BaseCommand):
             active_scraper.get_one(result['instance']['value'])
 
 
-class ActiveScrapper():
+class ActiveScrapper(PersonScrapperMixin):
+    model = Active
+
     def get_one(self, id):
         query = Template(u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf')
         query_s = query.substitute(id=id)
@@ -57,25 +72,3 @@ class ActiveScrapper():
         response_json = json.loads(response.content)
 
         return self.parse(response_json, id)
-
-    def parse(self, response_json, id):
-
-        previous_actives = Active.objects.filter(identifiers__identifier=id)
-        if previous_actives:
-            return None
-
-        active = Active()
-
-        for result in response_json['results']['bindings']:
-
-            if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
-                active.name = result["hasValue"]["value"]
-
-            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA':
-                identifier_alt = Identifier(identifier=result["hasValue"]["value"])
-        active.save()
-        identifier = Identifier(identifier=id)
-        active.identifiers.add(identifier)
-        active.identifiers.add(identifier_alt)
-        print active
-        return active
