@@ -25,7 +25,7 @@ class PersonScrapperMixin():
             return None
 
         person = self.model()
-
+        identifier_alt = None
         for result in response_json['results']['bindings']:
 
             if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
@@ -39,8 +39,10 @@ class PersonScrapperMixin():
         person.save()
         identifier = Identifier(identifier=id)
         person.identifiers.add(identifier)
-        person.identifiers.add(identifier_alt)
-        print person, self.model
+        if identifier_alt:
+            person.identifiers.add(identifier_alt)
+        else:
+            print person, id
         return person
 
 
