@@ -11,7 +11,6 @@ class PersonScrapperMixin():
     def get_one(self, id):
         query = Template(self.query)
         query_s = query.substitute(id=id)
-        print query_s
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
         try:
             response_json = json.loads(response.content)
@@ -21,7 +20,6 @@ class PersonScrapperMixin():
         return self.parse(response_json, id)
 
     def parse(self, response_json, id):
-
         previous_persons = self.model.objects.filter(identifiers__identifier=id)
         if previous_persons:
             return None
@@ -42,7 +40,7 @@ class PersonScrapperMixin():
         identifier = Identifier(identifier=id)
         person.identifiers.add(identifier)
         person.identifiers.add(identifier_alt)
-        print person
+        print person, self.model
         return person
 
 
@@ -70,13 +68,9 @@ class Scraper():
 class Command(BaseCommand):
     def handle(self, *args, **options):
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.PASSIVES_QUERY, 'output': 'json'})
-        response_json = json.loads(response.content)
-        passive_scrapper = PassiveScrapper()
-        for result in response_json['results']['bindings']:
-            passive_scrapper.get_one(result['instance']['value'])
+        passives_scrarper = Scraper(PassiveScrapper)
+        passives_scrarper.parse(response.content)
 
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ACTIVES_QUERY, 'output': 'json'})
-        response_json = json.loads(response.content)
-        active_scraper = ActiveScrapper()
-        for result in response_json['results']['bindings']:
-            active_scraper.get_one(result['instance']['value'])
+        actives_scraper = Scraper(ActiveScrapper)
+        actives_scraper.parse(response.content)
