@@ -8,6 +8,14 @@ from popolo.models import Identifier
 
 
 class PersonScrapperMixin():
+    def get_one(self, id):
+        query = Template(self.query)
+        query_s = query.substitute(id=id)
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
+        response_json = json.loads(response.content)
+
+        return self.parse(response_json, id)
+
     def parse(self, response_json, id):
 
         previous_persons = self.model.objects.filter(identifiers__identifier=id)
@@ -36,14 +44,12 @@ class PersonScrapperMixin():
 
 class PassiveScrapper(PersonScrapperMixin):
     model = Passive
+    query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue }  UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
 
-    def get_one(self, id):
-        query = Template(u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue }  UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf')
-        query_s = query.substitute(id=id)
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
-        response_json = json.loads(response.content)
 
-        return self.parse(response_json, id)
+class ActiveScrapper(PersonScrapperMixin):
+    model = Active
+    query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
 
 
 class Command(BaseCommand):
@@ -59,16 +65,3 @@ class Command(BaseCommand):
         active_scraper = ActiveScrapper()
         for result in response_json['results']['bindings']:
             active_scraper.get_one(result['instance']['value'])
-
-
-class ActiveScrapper(PersonScrapperMixin):
-    model = Active
-
-    def get_one(self, id):
-        query = Template(u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf')
-        query_s = query.substitute(id=id)
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
-
-        response_json = json.loads(response.content)
-
-        return self.parse(response_json, id)
