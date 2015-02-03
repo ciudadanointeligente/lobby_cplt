@@ -14,6 +14,9 @@ class PassiveScrapper():
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
         response_json = json.loads(response.content)
 
+        return self.parse(response_json, id)
+
+    def parse(self, response_json, id):
         previous_passives = Passive.objects.filter(identifiers__identifier=id)
         if previous_passives:
             return None
@@ -38,20 +41,22 @@ class Command(BaseCommand):
         for result in response_json['results']['bindings']:
             passive_scrapper.get_one(result['instance']['value'])
 
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ACTIVES_QUERY, 'output': 'json'})
+        response_json = json.loads(response.content)
+        active_scraper = ActiveScrapper()
+        for result in response_json['results']['bindings']:
+            active_scraper.get_one(result['instance']['value'])
+
 
 class ActiveScrapper():
     def get_one(self, id):
         query = Template(u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf')
         query_s = query.substitute(id=id)
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
+
         response_json = json.loads(response.content)
 
-        active = Active()
-        for result in response_json['results']['bindings']:
-
-            if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
-                active.name = result["hasValue"]["value"]
-        active.save()
+        return self.parse(response_json, id)
 
     def parse(self, response_json, id):
 
@@ -72,3 +77,5 @@ class ActiveScrapper():
         identifier = Identifier(identifier=id)
         active.identifiers.add(identifier)
         active.identifiers.add(identifier_alt)
+        print active
+        return active

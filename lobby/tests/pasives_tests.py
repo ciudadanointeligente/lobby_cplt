@@ -54,3 +54,6 @@ class PassiveScrapperTestCase(TestCase):
 
             leonores = Passive.objects.filter(name='Leonor Droguett Guerra')
             self.assertEquals(leonores.count(), 1)
+
+    # def test_gets_identifiers(self):
+        
