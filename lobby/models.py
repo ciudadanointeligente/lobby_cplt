@@ -22,3 +22,4 @@ class Audiencia(models.Model):
     passive = models.ForeignKey(Passive)
     actives = models.ManyToManyField(Active)
     identifiers = generic.GenericRelation(Identifier, help_text="Issued identifiers")
+    tags = TaggableManager()

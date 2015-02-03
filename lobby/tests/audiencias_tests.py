@@ -2,6 +2,9 @@ from django.test import TestCase
 from lobby.models import Audiencia, Passive, Active
 from django.utils import timezone
 from popolo.models import Identifier
+import os
+import json
+from lobby.management.commands.scrape import AudienciasScraper
 
 
 class AudienciasTestCase(TestCase):
@@ -48,11 +51,20 @@ class AudienciasTestCase(TestCase):
         self.assertIn(active1, audiencia.actives.all())
         self.assertIn(active2, audiencia.actives.all())
 
+    def test_audiencia_have_a_tag(self):
+        audiencia = Audiencia()
+        audiencia.description = "Description"
+        audiencia.passive = self.passive
+        audiencia.save()
+        audiencia.tags.add('Tag')
+        self.assertTrue(audiencia.tags.all())
+        self.assertTrue(audiencia.tags.count(), 1)
+
 
 class AudienciasScraperTestCase(TestCase):
     fixtures = ['persons']
 
-    def atest_loads_an_audiencia(self):
+    def test_loads_an_audiencia(self):
         script_dir = os.path.dirname(__file__)
         f = open(os.path.join(script_dir, 'fixtures/audiencia_2204.json'), 'r')
         audiencia_2204_json = json.loads(f.read())
@@ -60,5 +72,33 @@ class AudienciasScraperTestCase(TestCase):
         scraper = AudienciasScraper()
         scraper.get_one(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
 
-        audiencias = Audiencia.objects.filter(description="Oficina subsecretaria")
+        audiencias = Audiencia.objects.filter(identifiers__identifier='http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
         self.assertTrue(audiencias)
+        self.assertEquals(audiencias.count(), 1)
+        audiencia = audiencias[0]
+        self.assertEquals(audiencia.description, "Oficina subsecretaria")
+        self.assertTrue(audiencia.observations)
+        paty = Passive.objects.get(pk=305)
+        self.assertEquals(audiencia.passive, paty)
+
+        a1 = Active.objects.get(pk=480)
+        a2 = Active.objects.get(pk=481)
+        a3 = Active.objects.get(pk=482)
+
+        self.assertIn(a1, audiencia.actives.all())
+        self.assertIn(a2, audiencia.actives.all())
+        self.assertIn(a3, audiencia.actives.all())
+
+    def test_scrape_twice_audiencias(self):
+        script_dir = os.path.dirname(__file__)
+        f = open(os.path.join(script_dir, 'fixtures/audiencia_2204.json'), 'r')
+        audiencia_2204_json = json.loads(f.read())
+
+        scraper = AudienciasScraper()
+        scraper.get_one(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+        scraper.get_one(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+
+        audiencias = Audiencia.objects.filter(identifiers__identifier='http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+
+        self.assertEquals(audiencias.count(), 1)
+        

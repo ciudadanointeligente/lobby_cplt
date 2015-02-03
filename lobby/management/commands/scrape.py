@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 import requests
 from django.conf import settings
-from lobby.models import Passive, Active
+from lobby.models import Passive, Active, Audiencia
 from string import Template
 import json
 from popolo.models import Identifier
@@ -14,7 +14,7 @@ class PersonScrapperMixin():
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
         try:
             response_json = json.loads(response.content)
-        except ValueError, e:
+        except ValueError:
             return
 
         return self.parse(response_json, id)
@@ -65,6 +65,35 @@ class Scraper():
         scraper = self.scraper()
         for result in response_json['results']['bindings']:
             scraper.get_one(result['instance']['value'])
+
+
+class AudienciasScraper():
+    def get_one(self, response_json, id):
+        all_audiencias = Audiencia.objects.filter(identifiers__identifier=id)
+        if all_audiencias:
+            return
+        audiencia = Audiencia()
+        active = []
+        for result in response_json['results']['bindings']:
+            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/descripcion':
+                audiencia.description = result['hasValue']['value']
+
+            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/observaciones':
+                audiencia.observations = result['hasValue']['value']
+
+            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa':
+                person = result['isValueOf']['value']
+                try:
+                    audiencia.passive = Passive.objects.get(identifiers__identifier=person)
+                except Passive.DoesNotExist:
+                    active.append(Active.objects.get(identifiers__identifier=person))
+
+        audiencia.save()
+        for a in active:
+            audiencia.actives.add(a)
+
+        identifier = Identifier(identifier=id)
+        audiencia.identifiers.add(identifier)
 
 
 class Command(BaseCommand):
