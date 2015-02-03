@@ -1,6 +1,10 @@
 from lobby.models import Active
 from django.test import TestCase
 from popolo.models import Identifier
+from lobby.management.commands.scrape import ActiveScrapper
+from lobby.tests import PostMock
+from django.test.utils import override_settings
+from mock import patch
 
 
 class ActiveTestCase(TestCase):
@@ -20,7 +24,6 @@ class ActiveTestCase(TestCase):
         self.assertTrue(active2)
         self.assertEquals(active2.name, u"Perico los palotes")
 
-
     def test_use_two_identifiers(self):
         active = Active.objects.create(name=u"Perico los palotes")
 
@@ -35,4 +38,23 @@ class ActiveTestCase(TestCase):
         self.assertTrue(active_search_two)
         self.assertEquals(active_search_one.name, u"Perico los palotes")
         self.assertEquals(active_search_two.name, u"Perico los palotes")
-        
+
+
+actives_query = 'SELECT DISTINCT * WHERE { ?s a foaf:Person; cplt:validoDurante ?p }'
+sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
+
+
+@override_settings(SPARQL_ENDPOINT=sparql_url)
+@override_settings(ACTIVES_QUERY=actives_query)
+class ActiveScrapperTestCase(TestCase):
+    def test_get_one(self):
+        with patch('requests.post') as post:
+            post.return_value = PostMock('alejandro.json')
+
+            scraper = ActiveScrapper()
+            scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905')
+            query = u"SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf"
+            post.assert_called_with(sparql_url, data={'query': query, 'output': 'json'})
+
+        active = Active.objects.filter(name="Alejandro Jimenez")
+        self.assertTrue(active)

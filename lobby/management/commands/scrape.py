@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 import requests
 from django.conf import settings
-from lobby.models import Passive
+from lobby.models import Passive, Active
 from string import Template
 import json
 from popolo.models import Identifier
@@ -37,3 +37,18 @@ class Command(BaseCommand):
         passive_scrapper = PassiveScrapper()
         for result in response_json['results']['bindings']:
             passive_scrapper.get_one(result['instance']['value'])
+
+
+class ActiveScrapper():
+    def get_one(self, id):
+        query = Template(u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf')
+        query_s = query.substitute(id=id)
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
+        response_json = json.loads(response.content)
+
+        active = Active()
+        for result in response_json['results']['bindings']:
+
+            if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
+                active.name = result["hasValue"]["value"]
+        active.save()
