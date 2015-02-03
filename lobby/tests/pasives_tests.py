@@ -1,10 +1,7 @@
 from django.test import TestCase
 from lobby.models import Passive
-from django.core.management import call_command
-from mock import patch
 from django.test.utils import override_settings
 from lobby.management.commands.scrape import PassiveScrapper, Scraper
-from lobby.tests import PostMock
 from lobby.tests import post_mock
 import os
 
@@ -44,10 +41,8 @@ class PassiveScrapperTestCase(TestCase):
         script_dir = os.path.dirname(__file__)
         f = open(os.path.join(script_dir, 'fixtures/single_passive.json'), 'r')
         passives_plain = f.read()
-        with patch('requests.post') as post:
-            post.return_value = PostMock('leonor.json')
-            scraper = Scraper(PassiveScrapper)
-            scraper.parse(passives_plain)
+        scraper = Scraper(PassiveScrapper, requester=post_mock)
+        scraper.parse(passives_plain)
 
         leonores = Passive.objects.all()
         self.assertEquals(leonores.count(), 1)

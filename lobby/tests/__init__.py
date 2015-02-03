@@ -8,16 +8,6 @@ def read_fixture(fixture_name=''):
     return f.read()
 
 
-class PostMock():
-    def __init__(self, fixture=''):
-        self.status_code = 200
-        self.content = ''
-        if fixture:
-            script_dir = os.path.dirname(__file__)
-            f = open(os.path.join(script_dir, 'fixtures/' + fixture), 'r')
-            self.content = f.read()
-
-
 def post_mock(url, data=None, json=None, **kwargs):
     responses_array = {
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':

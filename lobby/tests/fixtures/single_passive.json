@@ -5,7 +5,7 @@
   "results": {
     "bindings": [
       {
-        "instance": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000839493CA5EA57D857ADB78795DD1814692EFD58431D2DB0056796C3660287B624578A3DB63BC11F713DA66D8DAADE51177BE1FA944142E72B4F2BB8034E7D90DD38ADF132A230059" }
+        "instance": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000006B61E3BE8531376237CA91EA5D76962CE44CFB210C4289CF99155ADD7A118A" }
       } 
     ]
   }
