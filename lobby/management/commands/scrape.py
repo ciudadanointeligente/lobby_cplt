@@ -11,8 +11,12 @@ class PersonScrapperMixin():
     def get_one(self, id):
         query = Template(self.query)
         query_s = query.substitute(id=id)
+        print query_s
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
-        response_json = json.loads(response.content)
+        try:
+            response_json = json.loads(response.content)
+        except ValueError, e:
+            return
 
         return self.parse(response_json, id)
 
@@ -50,6 +54,14 @@ class PassiveScrapper(PersonScrapperMixin):
 class ActiveScrapper(PersonScrapperMixin):
     model = Active
     query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+
+
+class Scraper():
+    def parse(self, content):
+        response_json = json.loads(content)
+        passive_scrapper = PassiveScrapper()
+        for result in response_json['results']['bindings']:
+            passive_scrapper.get_one(result['instance']['value'])
 
 
 class Command(BaseCommand):

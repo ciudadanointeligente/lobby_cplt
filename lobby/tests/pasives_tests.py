@@ -3,8 +3,9 @@ from lobby.models import Passive
 from django.core.management import call_command
 from mock import patch
 from django.test.utils import override_settings
-from lobby.management.commands.scrape import PassiveScrapper
+from lobby.management.commands.scrape import PassiveScrapper, Scraper
 from lobby.tests import PostMock
+import os
 
 
 class PassivePersonTestCase(TestCase):
@@ -29,11 +30,20 @@ class PassiveScrapperTestCase(TestCase):
             call_command('scrape', 'passives')
             post.assert_called_with(sparql_url, data={'query': passives_query, 'output': 'json'})
 
-    def atest_gets_several_passives(self):
-        call_command('scrape', 'passive')
-        self.assertGrater(Passive.objects.all().count(), 2)
-        self.assertEquals(Passive.objects.filter(name=u'Leonor Droguett Guerra'))
-        self.assertEquals(Passive.objects.filter(name=u'Tatiana Aceituno Flores '))
+    def test_gets_several_passives(self):
+        script_dir = os.path.dirname(__file__)
+        f = open(os.path.join(script_dir, 'fixtures/passives.json'), 'r')
+        passives_plain = f.read()
+        f = open(os.path.join(script_dir, 'fixtures/leonor.json'), 'r')
+        leonor_plain = f.read()
+        f = open(os.path.join(script_dir, 'fixtures/tatiana.json'), 'r')
+        tati_plain = f.read()
+
+        with patch('requests.post') as post:
+            post.return_value = PostMock()
+            scraper = Scraper()
+            scraper.parse(passives_plain)
+            self.assertEquals(post.call_count, 2)
 
     def test_gets_one_passive(self):
         with patch('requests.post') as post:
@@ -54,6 +64,3 @@ class PassiveScrapperTestCase(TestCase):
 
             leonores = Passive.objects.filter(name='Leonor Droguett Guerra')
             self.assertEquals(leonores.count(), 1)
-
-    # def test_gets_identifiers(self):
-        
