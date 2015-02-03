@@ -109,3 +109,8 @@ PREFIX map: <http://preproduccion-datos.infolobby.cl:80/resource/#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX cplt: <http://preproduccion-datos.infolobby.cl:80/resource/cplt/>
 SELECT DISTINCT ?instance WHERE { ?instance a foaf:Person; cplt:validoDurante ?p }'''
+
+try:
+    from local_settings import * # noqa
+except ImportError:
+    pass
