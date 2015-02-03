@@ -1,0 +1,81 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/correspondeA" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Audiencia/313" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/descripcion" } ,
+        "hasValue": { "type": "literal" , "value": "Sala reuniones Ministro MOP" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/duracion" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaMinutos/2205" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/esDeTipo" } ,
+        "hasValue": { "datatype": "http://www.w3.org/2001/XMLSchema#integer" , "type": "typed-literal" , "value": "1" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/inicia" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2205" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/lugar" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Comuna/13101" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/observaciones" } ,
+        "hasValue": { "type": "literal" , "value": "La Asociación tiene inquietud en la modificación del reglamento de consultores, donde quieren colaborar. ?Registro de Contratistas: Asociación manifiesta que la idea es proteger al MOP en relación a asegurar la calidad de los servicios que se prestan en el ámbito de la ingeniería." }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registradoPor" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/AgendaPublica" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/Registro" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/RegistroAudiencia" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/01000000E4B329551F95E1E91A7449E9734C92F51D4FB4FFBA55DBADFF4A9257A26031CA75A7AB6883BF388BDDAF4440B4B2ADB165940DE8966849B16C7199368FDFFB8F5FD526C98A06B638" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3908" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3909" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3910" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3574" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3575" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3576" }
+      }
+    ]
+  }
+}

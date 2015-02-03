@@ -1,0 +1,410 @@
+[
+{
+  "fields": {
+    "family_name": "",
+    "name": "PATRICIA ELIZABETH MARTA SILVA MELENDEZ",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:07:10Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:07:10Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "patricia-elizabeth-marta-silva-melendez",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 305
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Alberto Undurraga Vicu\u00f1a",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:14Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:14Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "alberto-undurraga-vicuna",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 447
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Alejandro Jimenez",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:29Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:29Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "alejandro-jimenez",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 480
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Daniel Oyarz\u00fan",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:29Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:29Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "daniel-oyarzun",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 481
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Jos\u00e9 Cisternas",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:30Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:30Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "jose-cisternas",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 482
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Francisco Aracena Deza",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:30Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:30Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "francisco-aracena-deza",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 483
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Ren\u00e9 Ureta Quintana",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:31Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:31Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "rene-ureta-quintana",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 484
+},
+{
+  "fields": {
+    "family_name": "",
+    "name": "Juan Carlos Olcay",
+    "end_date": null,
+    "honorific_suffix": "",
+    "additional_name": "",
+    "gender": "",
+    "created_at": "2015-02-03T20:08:31Z",
+    "death_date": "",
+    "updated_at": "2015-02-03T20:08:31Z",
+    "start_date": null,
+    "honorific_prefix": "",
+    "email": null,
+    "sort_name": "",
+    "summary": "",
+    "given_name": "",
+    "image": null,
+    "birth_date": "",
+    "patronymic_name": "",
+    "slug": "juan-carlos-olcay",
+    "biography": ""
+  },
+  "model": "popolo.person",
+  "pk": 485
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/010000009E2A27B2EDDB94FF484EB6FCCCD23BABE25146B3AA5D9CBA4F367F0945518F9424A918D8B2FFB1277AB099B9BF33D5233BF7620D15BDB3BAB9465A5E4030310A83563DE78504150E",
+    "object_id": 305,
+    "content_type": 16
+  },
+  "model": "popolo.identifier",
+  "pk": 609
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000B068F7856AEBB68FD6767E39FC56293FB650EE35A5DF004644AB9BE58D1289BC",
+    "object_id": 305,
+    "content_type": 16
+  },
+  "model": "popolo.identifier",
+  "pk": 610
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/01000000E4B329551F95E1E91A7449E9734C92F51D4FB4FFBA55DBADFF4A9257A26031CA75A7AB6883BF388BDDAF4440B4B2ADB165940DE8966849B16C7199368FDFFB8F5FD526C98A06B638",
+    "object_id": 447,
+    "content_type": 16
+  },
+  "model": "popolo.identifier",
+  "pk": 893
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/010000009A70883011D876CDB96D071E69298D7766A941761C8D49BA05D36070401768A9",
+    "object_id": 447,
+    "content_type": 16
+  },
+  "model": "popolo.identifier",
+  "pk": 894
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905",
+    "object_id": 480,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 959
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000C2C271D73AFC94E78D9A154DE59A8884718C5116A7A998EA76CCD2B02EC30726",
+    "object_id": 480,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 960
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3906",
+    "object_id": 481,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 961
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/0100000051961F55239DCB93C4CAE4AE40522AE3316068F6F1E0DAB9497129B3E882C8F2",
+    "object_id": 481,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 962
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3907",
+    "object_id": 482,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 963
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000AA60DBDC90BA110D2C75C77F748CED4C6E592C6A6E09C39FBD0CE5AF0C04F133",
+    "object_id": 482,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 964
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3908",
+    "object_id": 483,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 965
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/010000002F18322EFAB566BB23D69CCAD39B295908EE4517706C5DA41D06710C87C78A85",
+    "object_id": 483,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 966
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3909",
+    "object_id": 484,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 967
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000A1FDA7398BB8697726D8770B2485148B79D15014BBF60CEF37B7D6C5A71EB770",
+    "object_id": 484,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 968
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3910",
+    "object_id": 485,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 969
+},
+{
+  "fields": {
+    "scheme": "",
+    "identifier": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Persona/01000000661821A17B6B0F239E3C0E89117B0A9974A4D49E37158C71D91EC243AD7B1C08",
+    "object_id": 485,
+    "content_type": 17
+  },
+  "model": "popolo.identifier",
+  "pk": 970
+},
+{
+  "fields": {},
+  "model": "lobby.passive",
+  "pk": 305
+},
+{
+  "fields": {},
+  "model": "lobby.passive",
+  "pk": 447
+},
+{
+  "fields": {},
+  "model": "lobby.active",
+  "pk": 480
+},
+{
+  "fields": {},
+  "model": "lobby.active",
+  "pk": 481
+},
+{
+  "fields": {},
+  "model": "lobby.active",
+  "pk": 482
+},
+{
+  "fields": {},
+  "model": "lobby.active",
+  "pk": 483
+},
+{
+  "fields": {},
+  "model": "lobby.active",
+  "pk": 484
+},
+{
+  "fields": {},
+  "model": "lobby.active",
+  "pk": 485
+}
+]

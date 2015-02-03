@@ -1,0 +1,85 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/correspondeA" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Audiencia/312" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/descripcion" } ,
+        "hasValue": { "type": "literal" , "value": "Oficina subsecretaria" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/duracion" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaMinutos/2204" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/esDeTipo" } ,
+        "hasValue": { "datatype": "http://www.w3.org/2001/XMLSchema#integer" , "type": "typed-literal" , "value": "1" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/inicia" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/lugar" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Comuna/13101" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/observaciones" } ,
+        "hasValue": { "type": "literal" , "value": "1. Modificación de la ley N°18.593 sobre Tribunales Electorales Regionales, en relación a su artículo 10 N°1.?2. Mecanismos para fiscalizar a municipios que no han constituido COSOC.?3. En caso de eventual reforma constitucional, incluir mecanismos de participación ciudadana." }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registradoPor" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/AgendaPublica" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/Registro" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/RegistroAudiencia" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/010000009E2A27B2EDDB94FF484EB6FCCCD23BABE25146B3AA5D9CBA4F367F0945518F9424A918D8B2FFB1277AB099B9BF33D5233BF7620D15BDB3BAB9465A5E4030310A83563DE78504150E" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3906" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3907" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3570" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3571" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3572" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/registra" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/AsistenciaActivo/3573" }
+      }
+    ]
+  }
+}

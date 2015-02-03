@@ -1,6 +1,7 @@
 from django.db import models
-from popolo.models import Person
+from popolo.models import Person, Identifier
 from taggit.managers import TaggableManager
+from django.contrib.contenttypes import generic
 
 
 # Create your models here.
@@ -20,3 +21,4 @@ class Audiencia(models.Model):
     observations = models.TextField(null=True)
     passive = models.ForeignKey(Passive)
     actives = models.ManyToManyField(Active)
+    identifiers = generic.GenericRelation(Identifier, help_text="Issued identifiers")
