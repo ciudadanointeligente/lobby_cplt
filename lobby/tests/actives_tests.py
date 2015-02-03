@@ -2,9 +2,8 @@ from lobby.models import Active
 from django.test import TestCase
 from popolo.models import Identifier
 from lobby.management.commands.scrape import ActiveScrapper
-from lobby.tests import PostMock
+from lobby.tests import post_mock
 from django.test.utils import override_settings
-from mock import patch
 import json
 import os
 
@@ -56,13 +55,8 @@ sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
 @override_settings(ACTIVES_QUERY=actives_query)
 class ActiveScrapperTestCase(TestCase):
     def test_get_one(self):
-        with patch('requests.post') as post:
-            post.return_value = PostMock('alejandro.json')
-
-            scraper = ActiveScrapper()
-            scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905')
-            query = u"SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf"
-            post.assert_called_with(sparql_url, data={'query': query, 'output': 'json'})
+        scraper = ActiveScrapper(requester=post_mock)
+        scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/temp/Activo/3905')
 
         active = Active.objects.filter(name="Alejandro Jimenez")
         self.assertTrue(active)

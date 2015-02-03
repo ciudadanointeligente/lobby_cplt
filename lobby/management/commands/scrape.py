@@ -7,11 +7,16 @@ import json
 from popolo.models import Identifier
 
 
-class PersonScrapperMixin():
+class RequesterMixin():
+    def __init__(self, requester=requests.post, *args, **kwargs):
+        self.requester = requester
+
+
+class PersonScrapperMixin(RequesterMixin):
     def get_one(self, id):
         query = Template(self.query)
         query_s = query.substitute(id=id)
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
+        response = self.requester(settings.SPARQL_ENDPOING, data={'query': query_s, 'output': 'json'})
         try:
             response_json = json.loads(response.content)
         except ValueError:
@@ -56,14 +61,16 @@ class ActiveScrapper(PersonScrapperMixin):
     query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
 
 
-class Scraper():
-    def __init__(self, scraper, *args, **kwargs):
+class Scraper(RequesterMixin):
+    def __init__(self, scraper, requester=requests.post, *args, **kwargs):
         self.scraper = scraper
+        self.requester = requester
 
     def parse(self, content):
         response_json = json.loads(content)
-        scraper = self.scraper()
+        scraper = self.scraper(requester=self.requester)
         for result in response_json['results']['bindings']:
+            print scraper
             scraper.get_one(result['instance']['value'])
 
 
