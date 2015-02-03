@@ -1,3 +1,6 @@
 from django.contrib import admin
+from lobby.models import Passive, Active
 
-# Register your models here.
+
+admin.site.register(Passive)
+admin.site.register(Active)
