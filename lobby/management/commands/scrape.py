@@ -67,8 +67,10 @@ class Scraper():
             scraper.get_one(result['instance']['value'])
 
 
-class AudienciasScraper():
-    def get_one(self, response_json, id):
+class AudienciasScraper(PersonScrapperMixin):
+    query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+
+    def parse(self, response_json, id):
         all_audiencias = Audiencia.objects.filter(identifiers__identifier=id)
         if all_audiencias:
             return
@@ -105,3 +107,7 @@ class Command(BaseCommand):
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ACTIVES_QUERY, 'output': 'json'})
         actives_scraper = Scraper(ActiveScrapper)
         actives_scraper.parse(response.content)
+
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
+        audiencias_scraper = Scraper(AudienciasScraper)
+        audiencias_scraper.parse(response.content)

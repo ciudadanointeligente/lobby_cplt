@@ -2,9 +2,12 @@ from django.test import TestCase
 from lobby.models import Audiencia, Passive, Active
 from django.utils import timezone
 from popolo.models import Identifier
+from django.test.utils import override_settings
 import os
 import json
 from lobby.management.commands.scrape import AudienciasScraper
+from mock import patch
+from lobby.tests import PostMock
 
 
 class AudienciasTestCase(TestCase):
@@ -61,6 +64,12 @@ class AudienciasTestCase(TestCase):
         self.assertTrue(audiencia.tags.count(), 1)
 
 
+audiencias_query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
+
+
+@override_settings(SPARQL_ENDPOINT=sparql_url)
+@override_settings(AUDIENCIAS_QUERY=audiencias_query)
 class AudienciasScraperTestCase(TestCase):
     fixtures = ['persons']
 
@@ -70,7 +79,7 @@ class AudienciasScraperTestCase(TestCase):
         audiencia_2204_json = json.loads(f.read())
 
         scraper = AudienciasScraper()
-        scraper.get_one(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+        scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
 
         audiencias = Audiencia.objects.filter(identifiers__identifier='http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
         self.assertTrue(audiencias)
@@ -95,10 +104,17 @@ class AudienciasScraperTestCase(TestCase):
         audiencia_2204_json = json.loads(f.read())
 
         scraper = AudienciasScraper()
-        scraper.get_one(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
-        scraper.get_one(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+        scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+        scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
 
         audiencias = Audiencia.objects.filter(identifiers__identifier='http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
 
         self.assertEquals(audiencias.count(), 1)
-        
+
+    def test_get_one_audiencia(self):
+        with patch('requests.post') as post:
+            post.return_value = PostMock('audiencia_2204.json')
+            scraper = AudienciasScraper()
+            scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
+            query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+            post.assert_called_with(sparql_url, data={'query': query, 'output': 'json'})
