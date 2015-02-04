@@ -1,0 +1,15 @@
+{
+  "head": {
+    "vars": [ "instance" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "instance": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40213" }
+      } ,
+      {
+        "instance": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40214" }
+      }
+    ]
+  }
+}

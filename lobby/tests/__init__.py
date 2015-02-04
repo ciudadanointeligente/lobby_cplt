@@ -37,6 +37,12 @@ def post_mock(url, data=None, json=None, **kwargs):
         read_fixture('azerta.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <http://preproduccion-datos.infolobby.cl:80/resource/URI/Entidad/700026604> ?property ?hasValue } UNION {?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Entidad/700026604> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('cpc.json'),
+        settings.MEMBERSHIP_QUERY:
+        read_fixture('memberships.json'),
+        u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40213> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40213> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
+        read_fixture('membership_40213.json'),
+        u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40214> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40214> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
+        read_fixture('membership_40214.json'),
         }
 
     if data:

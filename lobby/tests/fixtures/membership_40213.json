@@ -1,0 +1,33 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://www.w3.org/ns/org#Membership" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/ns/org#member" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/0100000035FBA8A3489DC55B38F2412000ECD823B7B037613D60FA221702F4025EF216475E4450578C83800A796A265767CF60B10C5D1C0A3D55C867E588683B758B4B6C684FD3391E2B0601" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/ns/org#memberDuring" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/IntervaloPasivo/40213" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/ns/org#organization" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/ns/org#role" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Cargo/1" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/ns/org#hasMember" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/0100000035FBA8A3489DC55B38F2412000ECD823B7B037613D60FA221702F4025EF216475E4450578C83800A796A265767CF60B10C5D1C0A3D55C867E588683B758B4B6C684FD3391E2B0601" }
+      }
+    ]
+  }
+}

@@ -74,6 +74,18 @@ class EntidadScraper(PersonScrapperMixin):
         return entidad
 
 
+class MembershipScraper(PersonScrapperMixin):
+    def parse(self, response_json):
+        person = None
+        organization = None
+        for result in response_json['results']['bindings']:
+            if result['property']['value'] == "http://www.w3.org/ns/org#member":
+                person = Passive.objects.get(identifiers__identifier=result["hasValue"]["value"])
+            if result['property']['value'] == "http://www.w3.org/ns/org#organization":
+                organization = Organization.objects.get(identifiers__identifier=result["hasValue"]["value"])
+        person.add_membership(organization)
+
+
 class PassiveScrapper(PersonScrapperMixin):
     model = Passive
     query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue }  UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'

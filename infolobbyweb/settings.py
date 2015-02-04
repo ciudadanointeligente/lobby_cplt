@@ -176,3 +176,19 @@ SELECT DISTINCT ?instance
 WHERE {{ ?instance a <{base_url}/resource/cplt/Entidad> }}
 ORDER BY ?instance
 '''.format(base_url=INFOLOBBY_BASE_URL)
+
+MEMBERSHIP_QUERY = '''
+PREFIX db: <{base_url}/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX map: <{base_url}/resource/#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cplt: <{base_url}/resource/cplt/>
+SELECT DISTINCT ?instance WHERE {{ ?instance a <http://www.w3.org/ns/org#Membership> }} ORDER BY ?instance
+'''.format(base_url=INFOLOBBY_BASE_URL)
