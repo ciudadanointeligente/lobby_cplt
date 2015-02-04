@@ -22,7 +22,10 @@ class PersonScrapperMixin(RequesterMixin):
         except ValueError:
             return
 
-        return self.parse(response_json, id)
+        return self.post_processor(self.parse(response_json, id))
+
+    def post_processor(self, response):
+        return response
 
     def parse(self, response_json, id):
         previous_persons = self.model.objects.filter(identifiers__identifier=id)
@@ -71,6 +74,18 @@ class Scraper(RequesterMixin):
         scraper = self.scraper(requester=self.requester)
         for result in response_json['results']['bindings']:
             scraper.get_one(result['instance']['value'])
+
+
+class MinutesScraper(RequesterMixin, PersonScrapperMixin):
+    query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+
+    def post_processor(self, response):
+        return int(response)
+
+    def parse(self, response_json, id=None):
+        for result in response_json['results']['bindings']:
+            if result['property']['value'] == 'http://www.w3.org/2006/time#minutes':
+                return result['hasValue']['value']
 
 
 class AudienciasScraper(PersonScrapperMixin):

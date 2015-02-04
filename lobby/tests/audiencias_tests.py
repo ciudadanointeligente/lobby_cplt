@@ -5,8 +5,8 @@ from popolo.models import Identifier
 from django.test.utils import override_settings
 import os
 import json
-from lobby.management.commands.scrape import AudienciasScraper
-from lobby.tests import post_mock
+from lobby.management.commands.scrape import AudienciasScraper, MinutesScraper
+from lobby.tests import post_mock, read_fixture
 
 
 class AudienciasTestCase(TestCase):
@@ -72,9 +72,7 @@ class AudienciasScraperTestCase(TestCase):
     fixtures = ['persons']
 
     def test_loads_an_audiencia(self):
-        script_dir = os.path.dirname(__file__)
-        f = open(os.path.join(script_dir, 'fixtures/audiencia_2204.json'), 'r')
-        audiencia_2204_json = json.loads(f.read())
+        audiencia_2204_json = json.loads(read_fixture('audiencia_2204.json'))
 
         scraper = AudienciasScraper()
         scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
@@ -97,9 +95,7 @@ class AudienciasScraperTestCase(TestCase):
         self.assertIn(a3, audiencia.actives.all())
 
     def test_scrape_twice_audiencias(self):
-        script_dir = os.path.dirname(__file__)
-        f = open(os.path.join(script_dir, 'fixtures/audiencia_2204.json'), 'r')
-        audiencia_2204_json = json.loads(f.read())
+        audiencia_2204_json = json.loads(read_fixture('audiencia_2204.json'))
 
         scraper = AudienciasScraper()
         scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
@@ -115,3 +111,18 @@ class AudienciasScraperTestCase(TestCase):
         audiencias = Audiencia.objects.filter(identifiers__identifier='http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
 
         self.assertEquals(audiencias.count(), 1)
+
+class MinutesParserTestCase(TestCase):
+    def test_the_scraper_parses_one(self):
+        minutes_json = json.loads(read_fixture('audienci_2204_minutes.json'))
+
+        scraper = MinutesScraper()
+        minutes = scraper.parse(minutes_json)
+        self.assertEquals(minutes, '60')
+
+    def test_get_one_minute(self):
+        scraper = MinutesScraper(requester=post_mock)
+        minutes = scraper.get_one("http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaMinutos/2204")
+
+        self.assertEquals(minutes, 60)
+
