@@ -4,7 +4,7 @@ from django.conf import settings
 from lobby.models import Passive, Active, Audiencia
 from string import Template
 import json
-from popolo.models import Identifier
+from popolo.models import Identifier, Organization
 from datetime import datetime
 
 
@@ -53,6 +53,11 @@ class PersonScrapperMixin(RequesterMixin):
         else:
             print person, id
         return person
+
+
+class InstitucionesScraper(PersonScrapperMixin):
+    model = Organization
+    query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <$id> ?property ?hasValue }  UNION  { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
 
 
 class PassiveScrapper(PersonScrapperMixin):

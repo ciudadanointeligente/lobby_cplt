@@ -23,7 +23,14 @@ def post_mock(url, data=None, json=None, **kwargs):
         u'SELECT oassuves':
         read_fixture('passives.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
-        read_fixture('audiencia_2204_inicia.json')
+        read_fixture('audiencia_2204_inicia.json'),
+        u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
+        read_fixture('subsecretaria_general_de_la_republica.json'),
+        u'SELECT DISTINCT ?instance WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/Institucion> } ORDER BY ?instance':
+        read_fixture('instituciones.json'),
+        u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
+        read_fixture('subsecretaria_obras_publicas.json'),
+
         }
 
     if data:
