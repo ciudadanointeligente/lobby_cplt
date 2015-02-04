@@ -2,7 +2,5 @@ Django==1.7.1
 nose
 django-nose
 -e git+git@github.com:ciudadanointeligente/django-popolo.git@longer_identifier#egg=django_popolo-dev
-mock
 requests
--e git+git@github.com:dropbox/responses.git#egg=responses
 django-taggit

@@ -1,0 +1,21 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://www.w3.org/2006/time#TemporalEntity" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/2006/time#hasBeginning" } ,
+        "hasValue": { "datatype": "http://www.w3.org/2001/XMLSchema#dateTime" , "type": "typed-literal" , "value": "2014-12-03T00:00:00" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/inicia" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204" }
+      }
+    ]
+  }
+}

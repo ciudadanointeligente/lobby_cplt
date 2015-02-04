@@ -5,6 +5,7 @@ from lobby.models import Passive, Active, Audiencia
 from string import Template
 import json
 from popolo.models import Identifier
+from datetime import datetime
 
 
 class RequesterMixin():
@@ -39,7 +40,7 @@ class PersonScrapperMixin(RequesterMixin):
             if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
                 person.name = result["hasValue"]["value"]
 
-            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA':
+            if result['property']['value'].endswith('resource/cplt/correpondeA'):
                 if 'hasValue' in result:
                     identifier_alt = Identifier(identifier=result["hasValue"]["value"])
                 if 'isValueOf' in result:
@@ -88,7 +89,16 @@ class MinutesScraper(SingleValueScraperMixin):
     property_value = 'http://www.w3.org/2006/time#minutes'
 
     def post_processor(self, response):
-        return int(response) 
+        return int(response)
+
+
+class IniciaScraper(SingleValueScraperMixin):
+    query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <$id> ?property ?hasValue }  UNION  { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+    property_value = 'http://www.w3.org/2006/time#hasBeginning'
+
+    def post_processor(self, response):
+        date = datetime.strptime(response, '%Y-%m-%dT%H:%M:%S')
+        return date
 
 
 class AudienciasScraper(PersonScrapperMixin):
@@ -101,18 +111,17 @@ class AudienciasScraper(PersonScrapperMixin):
         audiencia = Audiencia()
         active = []
         for result in response_json['results']['bindings']:
-            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/descripcion':
+            if result['property']['value'].endswith('resource/cplt/descripcion'):
                 audiencia.description = result['hasValue']['value']
 
-            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/observaciones':
+            if result['property']['value'].endswith('resource/cplt/observaciones'):
                 audiencia.observations = result['hasValue']['value']
 
-            if result['property']['value'] == "http://preproduccion-datos.infolobby.cl:80/resource/cplt/duracion":
+            if result['property']['value'].endswith("resource/cplt/duracion"):
                 minutes_scraper = MinutesScraper(requester=self.requester)
                 audiencia.length = minutes_scraper.get_one(result['hasValue']['value'])
 
-
-            if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa':
+            if result['property']['value'].endswith('resource/cplt/participa'):
                 person = result['isValueOf']['value']
                 try:
                     audiencia.passive = Passive.objects.get(identifiers__identifier=person)

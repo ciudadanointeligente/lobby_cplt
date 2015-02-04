@@ -22,6 +22,8 @@ def post_mock(url, data=None, json=None, **kwargs):
         read_fixture('tatiana.json'),
         u'SELECT oassuves':
         read_fixture('passives.json'),
+        u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
+        read_fixture('audiencia_2204_inicia.json')
         }
 
     if data:

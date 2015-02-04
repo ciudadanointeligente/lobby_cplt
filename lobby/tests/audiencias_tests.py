@@ -3,9 +3,8 @@ from lobby.models import Audiencia, Passive, Active
 from django.utils import timezone
 from popolo.models import Identifier
 from django.test.utils import override_settings
-import os
 import json
-from lobby.management.commands.scrape import AudienciasScraper, MinutesScraper
+from lobby.management.commands.scrape import AudienciasScraper, MinutesScraper, IniciaScraper
 from lobby.tests import post_mock, read_fixture
 
 
@@ -113,6 +112,7 @@ class AudienciasScraperTestCase(TestCase):
 
         self.assertEquals(audiencias.count(), 1)
 
+
 class MinutesParserTestCase(TestCase):
     def test_the_scraper_parses_one(self):
         minutes_json = json.loads(read_fixture('audienci_2204_minutes.json'))
@@ -127,3 +127,18 @@ class MinutesParserTestCase(TestCase):
 
         self.assertEquals(minutes, 60)
 
+
+class IniciaParserTestCasse(TestCase):
+    def test_the_scraper_parses_one(self):
+        inicia_json = json.loads(read_fixture('audiencia_2204_inicia.json'))
+
+        scraper = IniciaScraper()
+        date = scraper.parse(inicia_json)
+        self.assertEquals(date, '2014-12-03T00:00:00')
+
+    def test_get_one(self):
+        scraper = IniciaScraper(requester=post_mock)
+        date = scraper.get_one('http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204')
+        self.assertEquals(date.year, 2014)
+        self.assertEquals(date.month, 12)
+        self.assertEquals(date.day, 3)
