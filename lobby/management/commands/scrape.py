@@ -121,6 +121,10 @@ class AudienciasScraper(PersonScrapperMixin):
                 minutes_scraper = MinutesScraper(requester=self.requester)
                 audiencia.length = minutes_scraper.get_one(result['hasValue']['value'])
 
+            if result['property']['value'].endswith("resource/cplt/inicia"):
+                date_scraper = IniciaScraper(requester=self.requester)
+                audiencia.date = date_scraper.get_one(result['hasValue']['value'])
+
             if result['property']['value'].endswith('resource/cplt/participa'):
                 person = result['isValueOf']['value']
                 try:

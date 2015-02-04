@@ -82,6 +82,9 @@ class AudienciasScraperTestCase(TestCase):
         audiencia = audiencias[0]
         self.assertEquals(audiencia.description, "Oficina subsecretaria")
         self.assertEquals(audiencia.length, 60)
+        self.assertEquals(audiencia.date.year, 2014)
+        self.assertEquals(audiencia.date.month, 12)
+        self.assertEquals(audiencia.date.day, 3)
         self.assertTrue(audiencia.observations)
         paty = Passive.objects.get(pk=305)
         self.assertEquals(audiencia.passive, paty)
@@ -97,7 +100,7 @@ class AudienciasScraperTestCase(TestCase):
     def test_scrape_twice_audiencias(self):
         audiencia_2204_json = json.loads(read_fixture('audiencia_2204.json'))
 
-        scraper = AudienciasScraper()
+        scraper = AudienciasScraper(requester=post_mock)
         scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
         scraper.parse(audiencia_2204_json, 'http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroAudiencia/2204')
 
