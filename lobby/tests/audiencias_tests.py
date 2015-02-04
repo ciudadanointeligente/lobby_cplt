@@ -1,7 +1,7 @@
 from django.test import TestCase
 from lobby.models import Audiencia, Passive, Active
 from django.utils import timezone
-from popolo.models import Identifier
+from popolo.models import Identifier, Organization
 from django.test.utils import override_settings
 import json
 from lobby.management.commands.scrape import AudienciasScraper, MinutesScraper, IniciaScraper
@@ -13,12 +13,14 @@ class AudienciasTestCase(TestCase):
         self.passive = Passive.objects.create(name=u'The name')
 
     def test_instanciate(self):
+        organization = Organization.objects.create(name=u"The organization")
         date = timezone.localtime(timezone.now())
         audiencia = Audiencia()
         audiencia.description = "Description"
         audiencia.length = 60
         audiencia.date = date
         audiencia.place = 13101
+        audiencia.registering_organization = organization
         audiencia.observations = "Esto puede ser extenso"
         audiencia.passive = self.passive
         audiencia.save()
@@ -29,15 +31,18 @@ class AudienciasTestCase(TestCase):
         self.assertEquals(audiencia.length, 60)
         self.assertEquals(audiencia.date, date)
         self.assertEquals(audiencia.place, 13101)
+        self.assertEquals(audiencia.registering_organization, organization)
         self.assertEquals(audiencia.observations, "Esto puede ser extenso")
         self.assertEquals(audiencia.passive, self.passive)
         self.assertTrue(audiencia.identifiers.all())
         self.assertEquals(audiencia.identifiers.count(), 1)
 
     def test_audiencia_several_actives(self):
+        organization = Organization.objects.create(name=u"The organization")
         audiencia = Audiencia()
         audiencia.description = "Description"
         audiencia.passive = self.passive
+        audiencia.registering_organization = organization
         audiencia.save()
 
         active1 = Active.objects.create(name=u"Perico los palotes")
@@ -53,9 +58,11 @@ class AudienciasTestCase(TestCase):
         self.assertIn(active2, audiencia.actives.all())
 
     def test_audiencia_have_a_tag(self):
+        organization = Organization.objects.create(name=u"The organization")
         audiencia = Audiencia()
         audiencia.description = "Description"
         audiencia.passive = self.passive
+        audiencia.registering_organization = organization
         audiencia.save()
         audiencia.tags.add('Tag')
         self.assertTrue(audiencia.tags.all())
@@ -69,6 +76,11 @@ sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
 @override_settings(AUDIENCIAS_QUERY=audiencias_query)
 class AudienciasScraperTestCase(TestCase):
     fixtures = ['persons']
+
+    def setUp(self):
+        self.organization = Organization.objects.create(name=u"The org")
+        i = Identifier(identifier="http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001")
+        self.organization.identifiers.add(i)
 
     def test_loads_an_audiencia(self):
         audiencia_2204_json = json.loads(read_fixture('audiencia_2204.json'))

@@ -92,89 +92,87 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 STATIC_URL = '/static/'
 
 
-# Project specific
-
-SPARQL_ENDPOING = 'http://preproduccion-datos.infolobby.cl:80/sparql'
-PASSIVES_QUERY = '''
-PREFIX db: <http://preproduccion-datos.infolobby.cl:80/resource/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX org: <http://www.w3.org/ns/org#>
-PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX time: <http://www.w3.org/2006/time#>
-PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX map: <http://preproduccion-datos.infolobby.cl:80/resource/#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX cplt: <http://preproduccion-datos.infolobby.cl:80/resource/cplt/>
-SELECT DISTINCT * WHERE { ?instance a foaf:Person; org:hasMember ?p } '''
-ACTIVES_QUERY = '''
-PREFIX db: <http://preproduccion-datos.infolobby.cl:80/resource/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX org: <http://www.w3.org/ns/org#>
-PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX time: <http://www.w3.org/2006/time#>
-PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX map: <http://preproduccion-datos.infolobby.cl:80/resource/#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX cplt: <http://preproduccion-datos.infolobby.cl:80/resource/cplt/>
-SELECT DISTINCT ?instance WHERE { ?instance a foaf:Person; cplt:validoDurante ?p }'''
-AUDIENCIAS_QUERY = '''
-PREFIX db: <http://preproduccion-datos.infolobby.cl:80/resource/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX org: <http://www.w3.org/ns/org#>
-PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX time: <http://www.w3.org/2006/time#>
-PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX map: <http://preproduccion-datos.infolobby.cl:80/resource/#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX cplt: <http://preproduccion-datos.infolobby.cl:80/resource/cplt/>
-SELECT DISTINCT ?instance WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/RegistroAudiencia> } ORDER BY ?instance'''
-
-INSTITUCIONES_QUERY = '''
-PREFIX db: <http://preproduccion-datos.infolobby.cl:80/resource/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX org: <http://www.w3.org/ns/org#>
-PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX time: <http://www.w3.org/2006/time#>
-PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX map: <http://preproduccion-datos.infolobby.cl:80/resource/#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX cplt: <http://preproduccion-datos.infolobby.cl:80/resource/cplt/>
-SELECT DISTINCT ?instance WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/Institucion> } ORDER BY ?instance'''
-
-ENTIDADES_QUERY = '''
-PREFIX db: <http://preproduccion-datos.infolobby.cl:80/resource/>
-PREFIX foaf: <http://xmlns.com/foaf/0.1/>
-PREFIX org: <http://www.w3.org/ns/org#>
-PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
-PREFIX gn: <http://www.geonames.org/ontology#>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
-PREFIX time: <http://www.w3.org/2006/time#>
-PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
-PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
-PREFIX map: <http://preproduccion-datos.infolobby.cl:80/resource/#>
-PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
-PREFIX cplt: <http://preproduccion-datos.infolobby.cl:80/resource/cplt/>
-SELECT DISTINCT ?instance
-WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/Entidad> }
-ORDER BY ?instance
-'''
+INFOLOBBY_BASE_URL = 'http://preproduccion-datos.infolobby.cl:80'
 
 try:
     from local_settings import * # noqa
 except ImportError:
     pass
 
+# Project specific
+SPARQL_ENDPOING = '{base_url}/sparql'.format(base_url=INFOLOBBY_BASE_URL)
+PASSIVES_QUERY = u'''
+PREFIX db: <{base_url}/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX map: <{base_url}/resource/#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cplt: <{base_url}/resource/cplt/>
+SELECT DISTINCT * WHERE {{ ?instance a foaf:Person; org:hasMember ?p }} '''.format(base_url=INFOLOBBY_BASE_URL)
+ACTIVES_QUERY = u'''
+PREFIX db: <{base_url}/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX map: <{base_url}/resource/#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cplt: <{base_url}/resource/cplt/>
+SELECT DISTINCT ?instance WHERE {{ ?instance a foaf:Person; cplt:validoDurante ?p }}'''.format(base_url=INFOLOBBY_BASE_URL)
+AUDIENCIAS_QUERY = '''
+PREFIX db: <{base_url}/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX map: <{base_url}/resource/#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cplt: <{base_url}/resource/cplt/>
+SELECT DISTINCT ?instance WHERE {{ ?instance a <{base_url}/resource/cplt/RegistroAudiencia> }} ORDER BY ?instance'''.format(base_url=INFOLOBBY_BASE_URL)
 
+INSTITUCIONES_QUERY = '''
+PREFIX db: <{base_url}/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX map: <{base_url}/resource/#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cplt: <{base_url}/resource/cplt/>
+SELECT DISTINCT ?instance WHERE {{ ?instance a <{base_url}/resource/cplt/Institucion> }} ORDER BY ?instance'''.format(base_url=INFOLOBBY_BASE_URL)
 
+ENTIDADES_QUERY = '''
+PREFIX db: <{base_url}/resource/>
+PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX bcngeo: <http://datos.bcn.cl/ontologies/bcn-geographics#>
+PREFIX gn: <http://www.geonames.org/ontology#>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX time: <http://www.w3.org/2006/time#>
+PREFIX d2r: <http://sites.wiwiss.fu-berlin.de/suhl/bizer/d2r-server/config.rdf#>
+PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+PREFIX map: <{base_url}/resource/#>
+PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+PREFIX cplt: <{base_url}/resource/cplt/>
+SELECT DISTINCT ?instance
+WHERE {{ ?instance a <{base_url}/resource/cplt/Entidad> }}
+ORDER BY ?instance
+'''.format(base_url=INFOLOBBY_BASE_URL)

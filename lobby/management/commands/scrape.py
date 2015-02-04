@@ -140,6 +140,10 @@ class AudienciasScraper(PersonScrapperMixin):
                 minutes_scraper = MinutesScraper(requester=self.requester)
                 audiencia.length = minutes_scraper.get_one(result['hasValue']['value'])
 
+            if result['property']['value'].endswith("resource/cplt/registradoPor"):
+                organization = Organization.objects.get(identifiers__identifier=result['hasValue']['value'])
+                audiencia.registering_organization = organization
+
             if result['property']['value'].endswith("resource/cplt/inicia"):
                 date_scraper = IniciaScraper(requester=self.requester)
                 audiencia.date = date_scraper.get_one(result['hasValue']['value'])
@@ -173,10 +177,10 @@ class Command(BaseCommand):
         instituciones_scraper = Scraper(InstitucionesScraper)
         instituciones_scraper.parse(response.content)
 
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
-        audiencias_scraper = Scraper(AudienciasScraper)
-        audiencias_scraper.parse(response.content)
-
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ENTIDADES_QUERY, 'output': 'json'})
         entidades_scrapper = Scraper(EntidadScraper)
         entidades_scrapper.parse(response.content)
+
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
+        audiencias_scraper = Scraper(AudienciasScraper)
+        audiencias_scraper.parse(response.content)
