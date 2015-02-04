@@ -176,3 +176,7 @@ class Command(BaseCommand):
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
         audiencias_scraper = Scraper(AudienciasScraper)
         audiencias_scraper.parse(response.content)
+
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ENTIDADES_QUERY, 'output': 'json'})
+        entidades_scrapper = Scraper(EntidadScraper)
+        entidades_scrapper.parse(response.content)
