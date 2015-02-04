@@ -76,16 +76,21 @@ class Scraper(RequesterMixin):
             scraper.get_one(result['instance']['value'])
 
 
-class MinutesScraper(RequesterMixin, PersonScrapperMixin):
+class SingleValueScraperMixin(RequesterMixin, PersonScrapperMixin):
+    def parse(self, response_json, id=None):
+        for result in response_json['results']['bindings']:
+            if result['property']['value'] == self.property_value:
+                return result['hasValue']['value']
+
+
+class MinutesScraper(SingleValueScraperMixin):
     query = u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+    property_value = 'http://www.w3.org/2006/time#minutes'
 
     def post_processor(self, response):
         return int(response)
 
-    def parse(self, response_json, id=None):
-        for result in response_json['results']['bindings']:
-            if result['property']['value'] == 'http://www.w3.org/2006/time#minutes':
-                return result['hasValue']['value']
+    
 
 
 class AudienciasScraper(PersonScrapperMixin):
