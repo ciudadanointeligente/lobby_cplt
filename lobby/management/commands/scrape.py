@@ -155,6 +155,10 @@ class Command(BaseCommand):
         actives_scraper = Scraper(ActiveScrapper)
         actives_scraper.parse(response.content)
 
+        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.INSTITUCIONES_QUERY, 'output': 'json'})
+        instituciones_scraper = Scraper(InstitucionesScraper)
+        instituciones_scraper.parse(response.content)
+
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
         audiencias_scraper = Scraper(AudienciasScraper)
         audiencias_scraper.parse(response.content)
