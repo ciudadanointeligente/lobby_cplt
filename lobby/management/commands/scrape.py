@@ -88,9 +88,7 @@ class MinutesScraper(SingleValueScraperMixin):
     property_value = 'http://www.w3.org/2006/time#minutes'
 
     def post_processor(self, response):
-        return int(response)
-
-    
+        return int(response) 
 
 
 class AudienciasScraper(PersonScrapperMixin):
@@ -108,6 +106,11 @@ class AudienciasScraper(PersonScrapperMixin):
 
             if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/observaciones':
                 audiencia.observations = result['hasValue']['value']
+
+            if result['property']['value'] == "http://preproduccion-datos.infolobby.cl:80/resource/cplt/duracion":
+                minutes_scraper = MinutesScraper(requester=self.requester)
+                audiencia.length = minutes_scraper.get_one(result['hasValue']['value'])
+
 
             if result['property']['value'] == 'http://preproduccion-datos.infolobby.cl:80/resource/cplt/participa':
                 person = result['isValueOf']['value']
