@@ -26,3 +26,12 @@ class EntidadScraperTestCase(TestCase):
         self.assertTrue(self.passive.memberships.all())
         self.assertEqual(self.passive.memberships.count(), 1)
         self.assertEqual(self.passive.memberships.all()[0].organization, self.organization)
+
+    def test_get_one(self):
+        id = "http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40213"
+        scraper = MembershipScraper(requester=post_mock)
+        scraper.get_one(id)
+
+        self.assertTrue(self.passive.memberships.all())
+        self.assertEqual(self.passive.memberships.count(), 1)
+        self.assertEqual(self.passive.memberships.all()[0].organization, self.organization)

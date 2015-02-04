@@ -75,7 +75,9 @@ class EntidadScraper(PersonScrapperMixin):
 
 
 class MembershipScraper(PersonScrapperMixin):
-    def parse(self, response_json):
+    query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+
+    def parse(self, response_json, id=None):
         person = None
         organization = None
         for result in response_json['results']['bindings']:
