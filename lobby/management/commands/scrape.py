@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand
 import requests
 from django.conf import settings
-from lobby.models import Passive, Active, Audiencia
+from lobby.models import Passive, Active, Audiencia, Entidad
 from string import Template
 import json
 from popolo.models import Identifier, Organization
@@ -28,6 +28,9 @@ class PersonScrapperMixin(RequesterMixin):
     def post_processor(self, response):
         return response
 
+    def extra_processor(self, result, instance):
+        return instance
+
     def parse(self, response_json, id):
         previous_persons = self.model.objects.filter(identifiers__identifier=id)
         if previous_persons:
@@ -36,6 +39,7 @@ class PersonScrapperMixin(RequesterMixin):
         person = self.model()
         identifier_alt = None
         for result in response_json['results']['bindings']:
+            person = self.extra_processor(result, person)
 
             if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
                 person.name = result["hasValue"]["value"]
@@ -58,6 +62,16 @@ class PersonScrapperMixin(RequesterMixin):
 class InstitucionesScraper(PersonScrapperMixin):
     model = Organization
     query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <$id> ?property ?hasValue }  UNION  { ?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+
+
+class EntidadScraper(PersonScrapperMixin):
+    model = Entidad
+    query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <$id> ?property ?hasValue } UNION {?isValueOf ?property <$id> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
+
+    def extra_processor(self, result, entidad):
+        if result['property']['value'].endswith('resource/cplt/rut'):
+            entidad.rut = result["hasValue"]["value"]
+        return entidad
 
 
 class PassiveScrapper(PersonScrapperMixin):

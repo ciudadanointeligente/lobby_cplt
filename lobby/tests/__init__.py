@@ -31,6 +31,8 @@ def post_mock(url, data=None, json=None, **kwargs):
         read_fixture('instituciones.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('subsecretaria_obras_publicas.json'),
+        u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <http://preproduccion-datos.infolobby.cl:80/resource/URI/Entidad/769818200> ?property ?hasValue } UNION {?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Entidad/769818200> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
+        read_fixture('azerta.json'),
 
         }
 

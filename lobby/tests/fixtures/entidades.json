@@ -1,0 +1,12 @@
+{
+  "head": {
+    "vars": [ "instance" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "instance": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/URI/Entidad/769818200" }
+      }
+    ]
+  }
+}

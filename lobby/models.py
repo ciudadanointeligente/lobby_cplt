@@ -1,5 +1,5 @@
 from django.db import models
-from popolo.models import Person, Identifier
+from popolo.models import Person, Identifier, Organization
 from taggit.managers import TaggableManager
 from django.contrib.contenttypes import generic
 
@@ -23,3 +23,7 @@ class Audiencia(models.Model):
     actives = models.ManyToManyField(Active)
     identifiers = generic.GenericRelation(Identifier, help_text="Issued identifiers")
     tags = TaggableManager()
+
+
+class Entidad(Organization):
+    rut = models.CharField(max_length=64)

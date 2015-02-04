@@ -1,0 +1,33 @@
+{
+  "head": {
+    "vars": [ "property" , "hasValue" , "isValueOf" ]
+  } ,
+  "results": {
+    "bindings": [
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/rut" } ,
+        "hasValue": { "type": "literal" , "value": "769818200" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/Entidad" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://www.w3.org/ns/org#Organization" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://www.w3.org/1999/02/22-rdf-syntax-ns#type" } ,
+        "hasValue": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/Agent" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://xmlns.com/foaf/0.1/name" } ,
+        "hasValue": { "type": "literal" , "value": "Azerta Comunicaciones" }
+      } ,
+      {
+        "property": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/cplt/correpondeA" } ,
+        "isValueOf": { "type": "uri" , "value": "http://preproduccion-datos.infolobby.cl:80/resource/temp/RegistroEntidad/1662" }
+      }
+    ]
+  }
+}
