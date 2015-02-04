@@ -1,5 +1,6 @@
 import os
 from django.http import HttpResponse
+from django.conf import settings
 
 
 def read_fixture(fixture_name=''):
@@ -20,13 +21,13 @@ def post_mock(url, data=None, json=None, **kwargs):
         read_fixture('leonor.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/01000000E31C39D004051B319923430929BF486C807689D6527AF079ABF9CCC3346867C99FA310BA17B2573DB988A4B811F299618A98C6A57C22BC327A009EC766D54292016380CCB9A89F39> ?property ?hasValue }  UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Pasivo/01000000E31C39D004051B319923430929BF486C807689D6527AF079ABF9CCC3346867C99FA310BA17B2573DB988A4B811F299618A98C6A57C22BC327A009EC766D54292016380CCB9A89F39> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('tatiana.json'),
-        u'SELECT oassuves':
+        settings.PASSIVES_QUERY:
         read_fixture('passives.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/AudienciaInicio/2204> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('audiencia_2204_inicia.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('subsecretaria_general_de_la_republica.json'),
-        u'SELECT DISTINCT ?instance WHERE { ?instance a <http://preproduccion-datos.infolobby.cl:80/resource/cplt/Institucion> } ORDER BY ?instance':
+        settings.INSTITUCIONES_QUERY:
         read_fixture('instituciones.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {  { <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001> ?property ?hasValue }  UNION  { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AM001> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('subsecretaria_obras_publicas.json'),
