@@ -1,0 +1,85 @@
+Archivo.Columna.Definición
+Pasivos.IDPasivo.Identificador único del pasivo
+Pasivos.Nombre_Institucion.Nombre institución que lo registra
+Pasivos.CategoriaCargo_Nombre.Cargo que desempeña
+Pasivos.Nombre_Pasivo.nombre del pasivo
+Pasivos.Apellidos_Pasivo.apellidos del pasivo
+Pasivos.CodigoNacionalidadIso_Pasivo.Código nacionalidad
+Pasivos.DocumentoPaisIso_Pasivo.Código nacionalidad documento
+Pasivos.FechaInicio_Pasivo.Fecha de inicio en el rol de pasivo
+Pasivos.FechaTermino_Pasivo.Fecha termino en el rol de pasivo
+Pasivos.LinkAudienciaReunion_Pasivo.Dirección para ver sus audiencias registradas
+Pasivos.LinkViajes_Pasivo.Dirección para ver viajes registrados 
+Pasivos.LinkDonativos_Pasivo.Link para ver sus donativos registrados
+Pasivos.CargoFuncion_Pasivo.Definición de su cargo
+Pasivos.IDORPortal_Institucion."Código de la institución que lo registro."
+Audiencias.IDAudienciaReunion.Identificador único de la audiencia
+Audiencias.Cut.Código de la comuna donde se realizo la audiencia
+Audiencias.Nombre_Institucion.Nombre de la institución que registro la audiencia
+Audiencias.IDORPortal_Institucion.Código de la institución que registro la audiencia
+Audiencias.Nombre_Comuna.Nombre de la comuna
+Audiencias.Nombre_TiposForma.Indica la forma en que se realizo la audiencia
+Audiencias.FechaInicio_Audiencia.Fecha inicio de la audiencia
+Audiencias.DuracionMinuto_Audiencia.Duración de audiencia en minutos
+Audiencias.Lugar_Audiencia.Definición del lugar de la audiencia
+Audiencias.ObservacionesMateria_Audiencia.Observaciones registradas de la audiencia
+Audiencias.Descripcion_Materia.Materia tratada en la reunión
+AsistenciaPasivo.IDAudienciaReunion.Identificador de la audiencia
+AsistenciaPasivo.IDPasivo.Identificador único del pasivo
+Activo.IDActivo.Identificador único del activo
+Activo.Nombre_Institucion.Nombre de la institución que registro al activo
+Activo.IDORPortal_Institucion."Código de la institución que lo registro."
+Activo.Nombre_Activo.Nombre del activo
+Activo.Apellidos_Activo.Apellidos del activo
+Activo.DocumentoPais_Activo.Documento país
+Activo.CodigoNacionalidad_Activo.Nacionalidad
+Activo.FechaInicio_Activo.Facha inicio del activo
+Activo.FechaTermino_Activo.Fecha termino del activo
+Activo.Remunerado.Indica si el activo es remunerado
+AsistenciaActivo.IDEntidad_EmpleadorDelActivo.Identificador de la entidad empleadora del activo en la audiencia
+AsistenciaActivo.IDActivo.Identificador único del activo
+AsistenciaActivo.IDAudienciaReunion.Identificador único de la audiencia
+AsistenciaActivo.IDAsistenciaActivo.Identificador de la asistencia del activo
+Entidad.IDEntidad.Identificador único de la entidad
+Entidad.Rut.Rut de la entidad
+Entidad.CodigoInt.Código internacional de la entidad si posee
+Entidad.nombre.Nombre de la entidad
+Entidad.domicilio.Domicilio que registra
+Entidad.giro.Giro de la entidad
+Entidad.naturaleza.Naturaleza
+Entidad.Representante.Representante de la entidad
+Entidad.administrador.Si posee un administrador
+Entidad.institucion.Nombre institución que lo registra
+Entidad.idportal.Código institución que lo registra
+Entidad.tipoEntidad.Si es con personalidad jurídica o no
+Entidad.remunerado.Si cuando se relaciona con asistencia de audiencia es remunerada
+Representacion.IDPersona_Representada.Identificador del activo representado en la asistencia de la audiencia
+Representacion.IDEntidad_Representada.Identificador de entidad representada en la asistencia de la audiencia
+Representacion.IDAsistenciaActivo.Identificador de la asistencia del activo
+Viajes.FechaInicio_Viaje.Fecha inicia viaje
+Viajes.FechaTermino_Viaje.Fecha termino viaje
+Viajes.Destino_Viaje.Destino del viaje
+Viajes.CostoTotal_Viaje.Costo total del viaje
+Viajes.Monto_DesgloseViaje.Desglose de un gasto del viaje
+Viajes.OtroTipo_DesgloseViaje.Descripción de gasto del viaje
+Viajes.Nombre_TipoDesglose.Clasificación del gasto del vieja
+Viajes.Nombre_FinancistaViaje.Nombre del financista del gasto
+Viajes.Apellidos_FinancistaViaje.Apellidos del financista del gasto
+Viajes.Nombre_FinanciaViajeEntidad.Nombre de la entidad que financia el gasto
+Viajes.IDPasivo.Identificador del pasivo que realiza el viaje
+Viajes.IDViaje_CodigoViaje.Código único del viaje
+Viajes.Nombre_Objeto.Nombre de  razón del viaje
+Viajes.Otro_ObjetoViaje.Descripción de razón del viaje
+Viajes.Nombre_Institucion.Nombre institución que registra el viaje
+Viajes.IDORPortal_Institucion.Identificador de la institución que registra  el viaje
+Viajes.RutFinancistaEntidad."Rut de la entidad que financia el gasto. "
+Donativos.IDPasivo.Identificador del pasivo que recibe donativo
+Donativos.Fecha_Donativo.Fecha del donativo
+Donativos.Singularizacion_Donativo.Singularización del donativo
+Donativos.Ocasion_Donativo.ocasión que se dona el donativo
+Donativos.Nombre_DonanteEntidad.Nombre entidad que dona
+Donativos.Nombre_DonanteActivo.Nombre persona que dona
+Donativos.Apellidos_DonanteActivo.Apellidos persona que dona
+Donativos.Nombre_Institucion.Nombre institución que registra donativo
+Donativos.IDORPortal_Institucion.Código institución que lo registra
+Donativos.IDDonativo.Identificador único del donativo
