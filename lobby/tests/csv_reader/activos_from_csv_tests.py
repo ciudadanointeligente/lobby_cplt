@@ -48,8 +48,8 @@ class CSVAudienciaReader(TestCase):
         csv_reader = AudienciasCSVReader()
         csv_reader.parse_audiencia_line(self.line2)
 
-        self.assertIn("2", csv_reader.records)
-        audiencia = csv_reader.records['2']
+        self.assertIn("2", csv_reader.audiencia_records)
+        audiencia = csv_reader.audiencia_records['2']
         self.assertEquals(audiencia.observations,
              u"Se expusieron los productos textiles y de confección")
         self.assertIsNone(audiencia.id)
@@ -61,9 +61,28 @@ class CSVAudienciaReader(TestCase):
     def test_get_several(self):
         csv_reader = AudienciasCSVReader()
         csv_reader.parse_several_lines(self.all_lines)
-        self.assertIn("2", csv_reader.records)
-        self.assertIn("1", csv_reader.records)
-        self.assertEquals(len(csv_reader.records), 2)
+        self.assertIn("2", csv_reader.audiencia_records)
+        self.assertIn("1", csv_reader.audiencia_records)
+        self.assertEquals(len(csv_reader.audiencia_records), 2)
 
-        self.assertIsInstance(csv_reader.records['1'], Audiencia)
-        self.assertIsInstance(csv_reader.records['2'], Audiencia)
+        self.assertIsInstance(csv_reader.audiencia_records['1'], Audiencia)
+        self.assertIsInstance(csv_reader.audiencia_records['2'], Audiencia)
+
+from lobby.models import Passive
+
+
+class PersonsReaderCsV(TestCase):
+    def setUp(self):
+        self.cabeceras = ["IDPasivo", "Nombre_Institucion", "CategoriaCargo_Nombre", "Nombre_Pasivo", "Apellidos_Pasivo", "CodigoNacionalidadIso_Pasivo", "DocumentoPaisIso_Pasivo", "FechaInicio_Pasivo", "FechaTermino_Pasivo", "LinkAudienciaReunion_Pasivo", "LinkViajes_Pasivo", "LinkDonativos_Pasivo", "CargoFuncion_Pasivo", "IDORPortal_Institucion"]
+        self.line1 = ["34602", "SUBSECRETARÍA DE RELACIONES EXTERIORES", "Embajador ", "James Sidney", "Sinclair Manley", "CHL", "CHL", "2014-11-27", "", "https://www.leylobby.gob.cl/instituciones/124/cargos-pasivos/745/audiencias", "https://www.leylobby.gob.cl/instituciones/124/cargos-pasivos/745/viajes", "https://www.leylobby.gob.cl/instituciones/124/cargos-pasivos/745/donativos", "Embajador de Chile en Singapur", "AC001"]
+        self.line2 = ["34623", "EJÉRCITO DE CHILE", "Encargado de adquisiciones en las Fuerzas Armadas y de Orden y Seguridad Pública", "GUIDO ENZO", "MONTINI GÓMEZ", "CHL", "CHL", "2014-11-25", "", "https://www.leylobby.gob.cl/instituciones/130/cargos-pasivos/425/audiencias", "https://www.leylobby.gob.cl/instituciones/130/cargos-pasivos/425/viajes", "https://www.leylobby.gob.cl/instituciones/130/cargos-pasivos/425/donativos", "Comandante de Industria Militar e Ingeniería", "AD006"]
+        self.passive1 = Passive.objects.create(name=u"James Sidney Sinclair Manley")
+        self.passive2 = Passive.objects.create(name=u"GUIDO ENZO MONTINI GÓMEZ")
+
+    def test_persons_reader(self):
+        csv_reader = AudienciasCSVReader()
+        csv_reader.parse_several_passives_lines(self.line1)
+
+        p1 = Passive.objects.get(identifiers__identifier='passive_34602')
+
+        self.assertEquals(p1, self.passive1)

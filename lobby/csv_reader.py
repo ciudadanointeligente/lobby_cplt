@@ -1,4 +1,4 @@
-from lobby.models import Active, Audiencia
+from lobby.models import Active, Audiencia, Passive
 from popolo.models import Identifier
 import uuid
 import unicodedata
@@ -17,7 +17,7 @@ class ActivosCSVReader():
 
 class AudienciasCSVReader():
     def __init__(self, *args, **kwargs):
-        self.records = {
+        self.audiencia_records = {
 
         }
 
@@ -28,9 +28,15 @@ class AudienciasCSVReader():
         date = datetime.strptime(line[6], '%Y-%m-%d %H:%M:%S')
         audiencia.date = date
 
-        self.records[line[0]] = audiencia
+        self.audiencia_records[line[0]] = audiencia
 
     def parse_several_lines(self, lines):
         lines.pop(0)
         for line in lines:
             self.parse_audiencia_line(line)
+
+    def parse_several_passives_lines(self, line):
+        name = line[3].decode('utf-8').strip() + u" " + line[4].decode('utf-8').strip()
+        p = Passive.objects.get(name=name)
+        i = Identifier(identifier=u"passive_" + line[0].decode('utf-8').strip())
+        p.identifiers.add(i)
