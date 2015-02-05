@@ -35,8 +35,19 @@ class AudienciasCSVReader():
         for line in lines:
             self.parse_audiencia_line(line)
 
-    def parse_several_passives_lines(self, line):
+    def parse_one_person(self, line, klass, pre_):
         name = line[3].decode('utf-8').strip() + u" " + line[4].decode('utf-8').strip()
-        p = Passive.objects.get(name=name)
-        i = Identifier(identifier=u"passive_" + line[0].decode('utf-8').strip())
+        p = klass.objects.get(name=name)
+        i = Identifier(identifier=pre_ + line[0].decode('utf-8').strip())
         p.identifiers.add(i)
+
+    def parse_one_passive_lines(self, line):
+        self.parse_one_person(line, Passive, 'passive_')
+
+    def parse_several_passives_lines(self, lines):
+        lines.pop(0)
+        for line in lines:
+            self.parse_one_passive_lines(line)
+
+    def parse_one_active_lines(self, line):
+        self.parse_one_person(line, Active, 'active_')
