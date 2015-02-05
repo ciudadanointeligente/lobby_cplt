@@ -37,25 +37,14 @@ class PersonScrapperMixin(RequesterMixin):
             return None
 
         person = self.model()
-        identifier_alt = None
         for result in response_json['results']['bindings']:
             person = self.extra_processor(result, person)
 
             if result['property']['value'] == "http://xmlns.com/foaf/0.1/name":
                 person.name = result["hasValue"]["value"]
-
-            if result['property']['value'].endswith('resource/cplt/correpondeA'):
-                if 'hasValue' in result:
-                    identifier_alt = Identifier(identifier=result["hasValue"]["value"])
-                if 'isValueOf' in result:
-                    identifier_alt = Identifier(identifier=result["isValueOf"]["value"])
         person.save()
         identifier = Identifier(identifier=id)
         person.identifiers.add(identifier)
-        if identifier_alt:
-            person.identifiers.add(identifier_alt)
-        else:
-            print person, id
         return person
 
 
@@ -179,22 +168,26 @@ class AudienciasScraper(PersonScrapperMixin):
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.PASSIVES_QUERY, 'output': 'json'})
-        passives_scrarper = Scraper(PassiveScrapper)
-        passives_scrarper.parse(response.content)
+        # response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.PASSIVES_QUERY, 'output': 'json'})
+        # passives_scrarper = Scraper(PassiveScrapper)
+        # passives_scrarper.parse(response.content)
 
         response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ACTIVES_QUERY, 'output': 'json'})
         actives_scraper = Scraper(ActiveScrapper)
         actives_scraper.parse(response.content)
 
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.INSTITUCIONES_QUERY, 'output': 'json'})
-        instituciones_scraper = Scraper(InstitucionesScraper)
-        instituciones_scraper.parse(response.content)
+        # response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.INSTITUCIONES_QUERY, 'output': 'json'})
+        # instituciones_scraper = Scraper(InstitucionesScraper)
+        # instituciones_scraper.parse(response.content)
 
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ENTIDADES_QUERY, 'output': 'json'})
-        entidades_scrapper = Scraper(EntidadScraper)
-        entidades_scrapper.parse(response.content)
+        # response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.ENTIDADES_QUERY, 'output': 'json'})
+        # entidades_scrapper = Scraper(EntidadScraper)
+        # entidades_scrapper.parse(response.content)
 
-        response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
-        audiencias_scraper = Scraper(AudienciasScraper)
-        audiencias_scraper.parse(response.content)
+        # response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.AUDIENCIAS_QUERY, 'output': 'json'})
+        # audiencias_scraper = Scraper(AudienciasScraper)
+        # audiencias_scraper.parse(response.content)
+
+        # response = requests.post(settings.SPARQL_ENDPOING, data={'query': settings.MEMBERSHIP_QUERY, 'output': 'json'})
+        # memberships_scraper = Scraper(MembershipScraper)
+        # memberships_scraper.parse(response.content)

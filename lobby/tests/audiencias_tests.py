@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.test import TestCase
 from lobby.models import Audiencia, Passive, Active
 from django.utils import timezone
@@ -68,15 +69,60 @@ class AudienciasTestCase(TestCase):
         self.assertTrue(audiencia.tags.all())
         self.assertTrue(audiencia.tags.count(), 1)
 
+    def test_audiencia_without_passive_and_organization(self):
+        audiencia = Audiencia()
+        audiencia.description = "Description"
+        audiencia.save()
+
+        self.assertTrue(audiencia)
+
 audiencias_query = 'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE { { <$id> ?property ?hasValue } UNION { ?isValueOf ?property <$id> } } ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf'
 sparql_url = 'http://preproduccion-datos.infolobby.cl:80/sparql'
+
+
+from lobby.management.commands.scrape2 import AudienciasScraper2
+import uuid
+import unicodedata
+
+
+@override_settings(SPARQL_ENDPOINT=sparql_url)
+@override_settings(AUDIENCIAS_QUERY=audiencias_query)
+class AudienciasScraper2TestCase(TestCase):
+    def setUp(self):
+        self.the_json = json.loads('''
+        {
+            "instance": { "type": "bnode" , "value": "b0" } ,
+            "registradoPor": { "type": "uri" , "value": "http://datos.infolobby.cl:80/resource/URI/Institucion/AD009" } ,
+            "esDeTipo": { "type": "literal" , "value": "Presencial" } ,
+            "descripcion": { "type": "bnode" , "value": "b0" } ,
+            "lugar": { "type": "uri" , "value": "http://datos.infolobby.cl:80/resource/URI/Comuna/13101" } ,
+            "observaciones": { "type": "literal" , "value": "Se dieron a conocer los servicios de seguridad TI, vinculación de enlaces, Zimperium, soporte tecnológico, protección de ataques." } ,
+            "inicia": { "datatype": "http://www.w3.org/2001/XMLSchema#dateTime" , "type": "typed-literal" , "value": "2014-12-16T00:00:00" } ,
+            "duracion": { "datatype": "http://www.w3.org/2001/XMLSchema#integer" , "type": "typed-literal" , "value": "30" } ,
+            "materia": { "type": "uri" , "value": "http://datos.infolobby.cl:80/resource/URI/Materia/3" }
+          }
+        ''')
+        the_seed = u'Se dieron a conocer los servicios de seguridad TI, vinculación de enlaces, Zimperium, soporte tecnológico, protección de ataques.2014-12-16T00:00:00'
+        self.seed = unicodedata.normalize('NFKD', the_seed).encode('ascii', 'ignore')
+        self.generated_uuid = uuid.uuid5(uuid.NAMESPACE_DNS, self.seed)
+
+    def atest_get_one(self):
+        scraper = AudienciasScraper2()
+        scraper.get_one(self.the_json)
+
+        self.assertTrue(Audiencia.objects.all())
+        audiencia = Audiencia.objects.get(observations='Se dieron a conocer los servicios de seguridad TI, vinculación de enlaces, Zimperium, soporte tecnológico, protección de ataques.')
+        self.assertEquals(audiencia.length, 30)
+        self.assertEquals(audiencia.date.year, 2014)
+        self.assertEquals(audiencia.date.month, 12)
+        self.assertEquals(audiencia.date.day, 16)
+        self.assertTrue(audiencia.identifiers.filter(identifier=self.generated_uuid))
 
 
 @override_settings(SPARQL_ENDPOINT=sparql_url)
 @override_settings(AUDIENCIAS_QUERY=audiencias_query)
 class AudienciasScraperTestCase(TestCase):
     fixtures = ['persons']
-
     def setUp(self):
         self.organization = Organization.objects.create(name=u"The org")
         i = Identifier(identifier="http://preproduccion-datos.infolobby.cl:80/resource/URI/Institucion/AF001")

@@ -43,6 +43,34 @@ def post_mock(url, data=None, json=None, **kwargs):
         read_fixture('membership_40213.json'),
         u'SELECT DISTINCT ?property ?hasValue ?isValueOf WHERE {{ <http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40214> ?property ?hasValue } UNION { ?isValueOf ?property <http://preproduccion-datos.infolobby.cl:80/resource/temp/MembershipPasivo/40214> }} ORDER BY (!BOUND(?hasValue)) ?property ?hasValue ?isValueOf':
         read_fixture('membership_40214.json'),
+        u'''SELECT ?instance ?registradoPor ?esDeTipo ?descripcion ?lugar ?observaciones ?inicia ?duracion ?materia
+
+        WHERE { ?instance a cplt:RegistroAudiencia;
+
+        cplt:registradoPor ?registradoPor;
+
+        cplt:esDeTipo ?esDeTipo;
+
+        cplt:descripcion ??descripcion;
+
+        cplt:lugar ?lugar;
+
+        cplt:observaciones ?observaciones;
+
+        cplt:materia ?materia;
+
+        cplt:inicia ?tiempoInicia.
+
+        ?tiempoInicia time:hasBeginning ?inicia.
+
+        ?instance cplt:duracion ?duracionI.
+
+        ?duracionI time:minutes ?duracion.
+
+
+        }
+        ''':
+        read_fixture('audiencias_2.json')
         }
 
     if data:

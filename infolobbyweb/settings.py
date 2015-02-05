@@ -128,7 +128,30 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001
 PREFIX map: <{base_url}/resource/#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX cplt: <{base_url}/resource/cplt/>
-SELECT DISTINCT ?instance WHERE {{ ?instance a foaf:Person; cplt:validoDurante ?p }}'''.format(base_url=INFOLOBBY_BASE_URL)
+SELECT DISTINCT ?nombreActivo ?instance ?ReunionregistradaPor ?ReunionesDeTipo ?descripcion ?lugar ?observaciones ?materia WHERE {{
+
+?s a cplt:Activo;
+
+foaf:name ?nombreActivo;
+
+cplt:correpondeA ?instance;
+
+cplt:participa ?reunion.
+
+?reunion cplt:registradoPor ?ReunionregistradaPor;
+
+cplt:esDeTipo ?ReunionesDeTipo;
+
+cplt:descripcion ?descripcion;
+
+cplt:lugar ?lugar;
+
+cplt:observaciones ?observaciones;
+
+cplt:materia ?materia;
+
+}}'''.format(base_url=INFOLOBBY_BASE_URL)
+
 AUDIENCIAS_QUERY = '''
 PREFIX db: <{base_url}/resource/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>

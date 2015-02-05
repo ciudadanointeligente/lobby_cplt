@@ -19,7 +19,7 @@ class Audiencia(models.Model):
     date = models.DateTimeField(null=True)
     place = models.IntegerField(null=True)
     observations = models.TextField(null=True)
-    passive = models.ForeignKey(Passive)
+    passive = models.ForeignKey(Passive, null=True)
     actives = models.ManyToManyField(Active)
     identifiers = generic.GenericRelation(Identifier, help_text="Issued identifiers")
     registering_organization = models.ForeignKey(Organization, null=True)
