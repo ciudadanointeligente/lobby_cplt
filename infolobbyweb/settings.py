@@ -94,8 +94,12 @@ STATIC_URL = '/static/'
 
 INFOLOBBY_BASE_URL = 'http://preproduccion-datos.infolobby.cl:80'
 
+
+EXTRA_APPS = ()
+
 try:
     from local_settings import * # noqa
+    INSTALLED_APPS += EXTRA_APPS
 except ImportError:
     pass
 
