@@ -114,7 +114,8 @@ PREFIX owl: <http://www.w3.org/2002/07/owl#> PREFIX xsd: <http://www.w3.org/2001
 PREFIX map: <{base_url}/resource/#>
 PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
 PREFIX cplt: <{base_url}/resource/cplt/>
-SELECT DISTINCT * WHERE {{ ?instance a foaf:Person; org:hasMember ?p }} '''.format(base_url=INFOLOBBY_BASE_URL)
+SELECT DISTINCT * WHERE {{ ?instancia a foaf:Person;
+cplt:correpondeA ?instance; org:hasMember ?p }} '''.format(base_url=INFOLOBBY_BASE_URL)
 ACTIVES_QUERY = u'''
 PREFIX db: <{base_url}/resource/>
 PREFIX foaf: <http://xmlns.com/foaf/0.1/>

@@ -25,6 +25,11 @@ class Audiencia(models.Model):
     registering_organization = models.ForeignKey(Organization, null=True)
     tags = TaggableManager()
 
+    def __unicode__(self):
+        return self.observations + " - " + self.passive.name
+
 
 class Entidad(Organization):
     rut = models.CharField(max_length=64)
+    remunerado = models.NullBooleanField()
+    giro = models.CharField(max_length=1024, default="")

@@ -27,7 +27,6 @@ class AudienciasCSVReader():
         audiencia.length = int(line[7])
         date = datetime.strptime(line[6], '%Y-%m-%d %H:%M:%S')
         audiencia.date = date
-
         self.audiencia_records[line[0]] = audiencia
 
     def parse_several_lines(self, lines):
