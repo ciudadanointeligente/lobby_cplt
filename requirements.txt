@@ -1,6 +1,6 @@
 Django==1.7.1
 nose
 django-nose
--e git+git@github.com:ciudadanointeligente/django-popolo.git@longer_identifier#egg=django_popolo-dev
+-e git+https://github.com/ciudadanointeligente/django-popolo.git@longer_identifier#egg=django_popolo-dev
 requests
 django-taggit
